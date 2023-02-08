@@ -8,3 +8,4 @@ Configured with:
 
 ## Read post on medium:
 https://medium.com/@adriancelczynski/react-with-typescript-starter-kit-without-create-react-app-including-webpack-eslint-bef225c35ffa
+# ThriftyCoV2
