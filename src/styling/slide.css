@@ -1,0 +1,25 @@
+.slideCont {
+    width: 80%;
+    padding: 2rem 0;
+    margin-bottom: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 2rem;
+    box-shadow: 0px 2px 40px #00000020, 0px 2px 5px #00000030;
+    background-color: rgb(252, 252, 252);
+}
+
+.slideImgCont {
+    display: flex;
+    justify-content: center;
+    margin: 1rem 0;
+}
+
+.slideImg {
+    width: 80%;
+}
+
+.slideTitle {
+    font-size: 30px;
+}

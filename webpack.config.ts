@@ -1,20 +1,28 @@
 import path from "path";
-import webpack, {Configuration} from "webpack";
+import webpack, {Configuration as WebpackConfiguration} from "webpack";
+import {Configuration as WebpackDevServerConfiguration} from "webpack-dev-server";
 import HtmlWebpackPlugin from "html-webpack-plugin";
 import ForkTsCheckerWebpackPlugin from "fork-ts-checker-webpack-plugin";
 import ESLintPlugin from "eslint-webpack-plugin";
 import {TsconfigPathsPlugin} from "tsconfig-paths-webpack-plugin";
+
+interface Configuration extends WebpackConfiguration {
+    devServer?: WebpackDevServerConfiguration;
+}
 
 const webpackConfig = (env): Configuration => ({
     entry: "./src/index.tsx",
     ...(env.production || !env.development ? {} : {devtool: "eval-source-map"}),
     resolve: {
         extensions: [".ts", ".tsx", ".js"],
+        //TODO waiting on https://github.com/dividab/tsconfig-paths-webpack-plugin/issues/61
+        //@ts-ignore
         plugins: [new TsconfigPathsPlugin()]
     },
     output: {
         path: path.join(__dirname, "/dist"),
-        filename: "build.js"
+        filename: "build.js",
+        publicPath: '/'
     },
     module: {
         rules: [
@@ -25,9 +33,13 @@ const webpackConfig = (env): Configuration => ({
                     transpileOnly: true
                 },
                 exclude: /dist/
-            }
+            },
+            {test: /\.css$/, use: ["style-loader", "css-loader"]},
         ]
     },
+    devServer: {
+        historyApiFallback: true,
+      },
     plugins: [
         new HtmlWebpackPlugin({
             template: "./public/index.html"
