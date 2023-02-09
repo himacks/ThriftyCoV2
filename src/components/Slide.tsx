@@ -4,7 +4,7 @@ import "../styling/slide.css";
 
 export default function Slide({name, imageSrc, store, timestamp, price}) {
     const getImgSrc = (imageSrc) => {
-        return `http://localhost:3030/images/${imageSrc}`;
+        return `https://thrifty-co-backend.vercel.app/images/${imageSrc}`;
     };
 
     return (
