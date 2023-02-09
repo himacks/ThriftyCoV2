@@ -1,3 +1,5 @@
+import axios from "axios";
+
 const getRandomCards = () => {
     const cards = [
         {
@@ -234,20 +236,25 @@ export const tabs = [
     },
     {category: "Pants", data: getRandomCards()},
     {category: "Shirts", data: getRandomCards()},
-    {category: "Top", data: getRandomCards()}
+    {category: "Tops", data: getRandomCards()}
 ];
 
 export type SlideData = {
     title: string;
-    imageSrc: string;
     store: string;
-    timestamp: string;
+    date: string;
     price: string;
+    image: string;
 };
 
-type SliderInfo = {
-    category: string;
-    data: SlideData[];
-};
+interface CategoryData {
+    [name: string]: SlideData[];
+}
 
-export type AllSlideData = Array<SliderInfo>;
+export const getInitialData = (): Promise<{categories: string[]; clothing: CategoryData}> => {
+    return new Promise((resolve) => {
+        axios.get("http://localhost:3030/getInitialData").then((result) => {
+            resolve(result.data);
+        });
+    });
+};

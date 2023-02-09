@@ -1,13 +1,23 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 
 import Slider from "../components/Slider";
 
-import {tabs} from "../helpers";
+import {tabs, getInitialData} from "../helpers";
 
 export default function AppPage() {
+    const [categories, setCategories] = useState(undefined);
+    const [clothing, setClothing] = useState(undefined);
+
+    useEffect(() => {
+        getInitialData().then((result) => {
+            setCategories(result.categories);
+            setClothing(result.clothing);
+        });
+    }, []);
+
     return (
         <div className="appCont">
-            <Slider allSlideData={tabs} />
+            {categories && clothing && <Slider categories={categories} clothing={clothing} />}
         </div>
     );
 }

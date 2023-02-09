@@ -6,13 +6,30 @@
 
 .categoryCont {
     display: flex;
+    justify-content: center;
+    margin: 1rem 0;
+}
+
+.categoryTitle {
+    text-align: center;
+    font-size: 24px;
+    margin: 1rem 0;
+    font-weight: 500;
 }
 
 .categoryButton {
-    font-size: 20px;
-    background-color: #e5e5e5;
-    border-radius: 1rem;
-    padding: 10px;
-    margin: 10px;
-    border: 1px solid black;
+    font-size: 1rem;
+    font-weight: 400;
+    background-color: #f4f4f4;
+    box-shadow: 0px 2px 40px #00000020, 0px 2px 5px #00000030;
+    border-radius: 2rem;
+    border: 1px transparent solid;
+    padding: 8px 12px;
+    margin: 0 2px;
+}
+
+.categoryButton--active {
+    background-color: #d9d9d9;
+    border: 1px #c2c2c2 solid;
+
 }

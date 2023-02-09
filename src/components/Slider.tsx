@@ -2,25 +2,21 @@ import React, {useEffect, useState} from "react";
 
 import Slide from "./Slide";
 
-import {SlideData, AllSlideData} from "../helpers";
-
 import "../styling/slider.css";
 
-export default function Slider({allSlideData}) {
-    const [slideDataList, setSlideDataList] = useState<AllSlideData>(allSlideData);
-    const [activeSlide, setActiveSlide] = useState(0);
+export default function Slider({categories, clothing}) {
+    const [clothingData, setClothingData] = useState(undefined);
 
-    const categories = Object.entries(slideDataList).map(([idk, {category}], index) => {
-        return category;
-    });
-
-    const setActive = (category) => {
-        setActiveSlide(categories.indexOf(category));
-    };
+    const [activeSlide, setActiveSlide] = useState(undefined);
 
     useEffect(() => {
-        console.log(activeSlide);
-    }, [activeSlide]);
+        if (!activeSlide) {
+            setActiveSlide(categories[0]);
+        }
+        if (!clothingData) {
+            setClothingData(clothing);
+        }
+    }, [activeSlide, categories, clothingData, clothing]);
 
     return (
         <>
@@ -28,9 +24,11 @@ export default function Slider({allSlideData}) {
                 {categories.map((category, index) => {
                     return (
                         <div
-                            className="categoryButton"
+                            className={`categoryButton${
+                                activeSlide === category ? " categoryButton--active" : ""
+                            }`}
                             onClick={() => {
-                                setActive(category);
+                                setActiveSlide(category);
                             }}
                             key={index}
                         >
@@ -39,21 +37,22 @@ export default function Slider({allSlideData}) {
                     );
                 })}
             </div>
+            <div className="categoryTitle">{activeSlide}</div>
             <div className="itemCont">
-                {slideDataList[activeSlide].data.map((slideData, i) => {
-                    return (
-                        <>
+                {clothingData &&
+                    activeSlide &&
+                    clothingData[activeSlide].map((slideData, i) => {
+                        return (
                             <Slide
                                 key={i}
                                 name={slideData.title}
-                                imageSrc={slideData.imageSrc}
+                                imageSrc={slideData.image}
                                 store={slideData.store}
-                                timestamp={slideData.timestamp}
+                                timestamp={slideData.date}
                                 price={slideData.price}
                             />
-                        </>
-                    );
-                })}
+                        );
+                    })}
             </div>
         </>
     );
