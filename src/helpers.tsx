@@ -16,8 +16,14 @@ interface CategoryData {
 
 export const getInitialData = (): Promise<{categories: string[]; clothing: CategoryData}> => {
     return new Promise((resolve) => {
-        axios.get(TESTING ? "https://localhost:3030" : "https://thrifty-co-backend.vercel.app" + "/getInitialData").then((result) => {
-            resolve(result.data);
-        });
+        axios
+            .get(
+                TESTING
+                    ? "https://localhost:3030"
+                    : "https://thrifty-co-backend.vercel.app" + "/getInitialData"
+            )
+            .then((result) => {
+                resolve(result.data);
+            });
     });
 };
