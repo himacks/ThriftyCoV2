@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 
 import Slider from "../components/Slider";
 
-import {tabs, getInitialData} from "../helpers";
+import {getInitialData} from "../helpers";
 
 export default function AppPage() {
     const [categories, setCategories] = useState(undefined);
