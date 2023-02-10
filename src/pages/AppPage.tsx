@@ -10,6 +10,7 @@ export default function AppPage() {
 
     useEffect(() => {
         getInitialData().then((result) => {
+            console.log(result);
             setCategories(result.categories);
             setClothing(result.clothing);
         });

@@ -1,12 +1,10 @@
 import React from "react";
 
+import {getImgSrc} from "../helpers";
+
 import "../styling/slide.css";
 
 export default function Slide({name, imageSrc, store, timestamp, price}) {
-    const getImgSrc = (imageSrc) => {
-        return `https://thrifty-co-backend.vercel.app/images/${imageSrc}`;
-    };
-
     return (
         <div className="slideCont">
             <div className="slideImgCont">
