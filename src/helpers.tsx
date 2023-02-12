@@ -3,11 +3,13 @@ import axios from "axios";
 const TESTING = false;
 
 export type SlideData = {
+    _id: unknown;
     title: string;
     store: string;
     date: string;
     price: string;
     image: string;
+    timeIndex: string;
 };
 
 interface CategoryData {
@@ -22,30 +24,28 @@ export const getImgSrc = (imageSrc) => {
     return `${getBaseURL()}/images/${imageSrc}`;
 };
 
-export const getInitialData = (): Promise<{categories: string[]; clothing: CategoryData}> => {
+export const getCategories = (): Promise<{categories: string[]}> => {
     return new Promise((resolve) => {
-        axios.get(`${getBaseURL()}/getInitialData`).then((result) => {
+        axios.get(`${getBaseURL()}/getCategories`).then((result) => {
             resolve(result.data);
         });
     });
 };
 
-export const postClothingData = (clothingData) => {
+export const getClothingFromCategory = (
+    category: string,
+    numItems: number
+): Promise<{items: CategoryData}> => {
+    const data = {category: category, numItems: numItems};
+
     return new Promise((resolve) => {
-        axios
-            .post(`${getBaseURL()}/postClothingItem`, {
-                clothingData: clothingData
-            })
-            .then(function (response) {
-                console.log(response.data);
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
+        axios.get(`${getBaseURL()}/getClothingItems`, {params: data}).then((result) => {
+            resolve(result.data);
+        });
     });
 };
 
-export const postClothingImg = (fileFormData) => {
+export const postClothingItem = (fileFormData) => {
     return new Promise((resolve) => {
         axios
             .post(

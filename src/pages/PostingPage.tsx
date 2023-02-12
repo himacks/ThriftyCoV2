@@ -1,24 +1,26 @@
 import React, {useState, useEffect} from "react";
-import {postClothingData, postClothingImg} from "../helpers";
-import {getInitialData} from "../helpers";
+import {postClothingItem} from "../helpers";
+import {getCategories} from "../helpers";
 
 export default function PostingPage() {
     const [categories, setCategories] = useState(undefined);
 
     useEffect(() => {
-        getInitialData().then((result) => {
+        getCategories().then((result) => {
             setCategories(result.categories);
         });
     }, []);
 
-    const [formData, setFormData] = useState({
+    const emptyForm = {
         title: "",
         store: "",
         category: "",
         date: "",
         price: "",
         image: ""
-    });
+    };
+
+    const [formData, setFormData] = useState(emptyForm);
     const [selectedFile, setSelectedFile] = useState<File>();
 
     const handleFormChange = (event, parameter) => {
@@ -51,9 +53,12 @@ export default function PostingPage() {
                 "fileName",
                 `${formData.category}-${Date.now()}.${selectedFile.type.split("/")[1]}`
             );
+            formFileData.append("timeIndex", `${Date.now()}`);
             formFileData.append("files", selectedFile);
 
-            postClothingImg(formFileData);
+            postClothingItem(formFileData);
+
+            setFormData(emptyForm);
         } else {
             console.log("form not complete");
         }

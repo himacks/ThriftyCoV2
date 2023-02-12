@@ -5,18 +5,13 @@ import Slide from "./Slide";
 import "../styling/slider.css";
 
 export default function Slider({categories, clothing}) {
-    const [clothingData, setClothingData] = useState(undefined);
-
     const [activeSlide, setActiveSlide] = useState(undefined);
 
     useEffect(() => {
         if (!activeSlide) {
             setActiveSlide(categories[0]);
         }
-        if (!clothingData) {
-            setClothingData(clothing);
-        }
-    }, [activeSlide, categories, clothingData, clothing]);
+    }, [activeSlide, categories]);
 
     return (
         <>
@@ -39,9 +34,10 @@ export default function Slider({categories, clothing}) {
             </div>
             <div className="categoryTitle">{activeSlide}</div>
             <div className="itemCont">
-                {clothingData &&
+                {clothing &&
                     activeSlide &&
-                    clothingData[activeSlide].map((slideData, i) => {
+                    clothing[activeSlide] &&
+                    clothing[activeSlide].map((slideData, i) => {
                         return (
                             <Slide
                                 key={i}

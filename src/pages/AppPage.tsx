@@ -2,17 +2,23 @@ import React, {useEffect, useState} from "react";
 
 import Slider from "../components/Slider";
 
-import {getInitialData} from "../helpers";
+import {getClothingFromCategory, getCategories} from "../helpers";
 
 export default function AppPage() {
     const [categories, setCategories] = useState(undefined);
     const [clothing, setClothing] = useState(undefined);
 
     useEffect(() => {
-        getInitialData().then((result) => {
-            console.log(result);
-            setCategories(result.categories);
-            setClothing(result.clothing);
+        getCategories().then((result) => {
+            const retrievedCategories = result.categories;
+            setCategories(retrievedCategories);
+            retrievedCategories.forEach((category) => {
+                getClothingFromCategory(category, 5).then((result) => {
+                    setClothing((clothing) => {
+                        return {...clothing, ...{[category]: result.items}};
+                    });
+                });
+            });
         });
     }, []);
 
