@@ -1,0 +1,92 @@
+.formBackground {
+    background-color: #f7f4f4;
+    padding: 2rem;
+    height: calc(100% - 4rem);
+}
+.formCont {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 1rem;
+    box-shadow: 0px 2px 40px #00000020, 0px 2px 5px #00000030;
+    background-color: #ffffff;
+    padding: 1rem;
+}
+
+.formHeader {
+    font-size: 20px;
+    font-weight: 500;
+    text-align: center;
+    margin: 2rem 0;
+}
+
+.inputCont {
+    padding: 1rem 2rem;
+    width: calc(100% - 2rem);
+    display: flex;
+    align-items: center;
+}
+
+.inputCont > * {
+    margin: 0 10px;
+}
+
+.formInput {
+    width: 80%;
+    height: 2rem;
+    border-radius: 15px;
+    box-shadow: 0px 2px 40px #00000020, 0px 2px 5px #00000030;
+    border: 1px solid #e0e0e0;
+    padding: 0 1rem;
+}
+
+.formInput--error {
+    border: 1px solid #fd2d2d;
+}
+
+.formSelect {
+    padding: 0 10px;
+}
+
+.submitCont {
+    margin: 2rem 0;
+}
+
+.formSubmitBtn {
+    padding: 1rem 2rem;
+    border-radius: 2rem;
+    border: 1px solid #c2c2c2;
+    box-shadow: 0px 2px 40px #00000020, 0px 2px 5px #00000030;
+    font-size: 16px;
+}
+
+.submitMsgCont {
+    display: flex;
+    justify-content: center;
+}
+
+.submitMsgText {
+    box-shadow: 0px 2px 40px #00000020, 0px 2px 5px #00000030;
+    width: min-content;
+    white-space: nowrap;
+    padding: 1rem;
+    border-radius: 1rem;
+    margin: 4rem 0;
+}
+
+.loadingCont {
+    margin: 4rem 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.submitMsgText--success {
+    background-color: #a6fca5;
+}
+
+.submitMsgText--failure {
+    background-color: #ff4141;
+
+}

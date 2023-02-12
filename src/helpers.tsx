@@ -46,7 +46,7 @@ export const getClothingFromCategory = (
 };
 
 export const postClothingItem = (fileFormData) => {
-    return new Promise((resolve) => {
+    return new Promise((resolve, reject) => {
         axios
             .post(
                 `${getBaseURL()}/postClothingItem`,
@@ -59,10 +59,10 @@ export const postClothingItem = (fileFormData) => {
                 }
             )
             .then(function (response) {
-                console.log(response.data);
+                resolve(response.data);
             })
             .catch(function (error) {
-                console.log(error);
+                reject(error);
             });
     });
 };
