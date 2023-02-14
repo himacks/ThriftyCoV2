@@ -1,7 +1,5 @@
 .slideCont {
     width: 80%;
-    padding: 2rem 0;
-    margin-bottom: 2rem;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -13,13 +11,48 @@
 .slideImgCont {
     display: flex;
     justify-content: center;
-    margin: 1rem 0;
 }
 
 .slideImg {
-    width: 80%;
+    border-top-left-radius: 2rem;
+    border-top-right-radius: 2rem;
+    width: 100%;
+}
+
+.slideInfoCont {
+    width: calc(100% - 2rem);
+    margin: 1rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.slideHeaderCont {
+    display: flex;
+    justify-content: space-between;
 }
 
 .slideTitle {
-    font-size: 30px;
+    font-size: 24px;
+    font-weight: 500;
+}
+
+.slidePrice {
+    font-size: 20px;
+    font-weight: 400;
+    margin-bottom: 10px;
+}
+
+.slideTimeStamp {
+    margin-bottom: 10px;
+}
+
+.slideStoreCont {
+    margin: 1rem 0;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+.slideStore {
+    font-weight: 800;
 }

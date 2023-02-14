@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect, useRef} from "react";
 import {postClothingItem} from "../helpers";
 import {getCategories} from "../helpers";
 import {InfinitySpin} from "react-loader-spinner";
@@ -29,6 +29,8 @@ export default function PostingPage() {
         {success: boolean; value: string} | undefined
     >();
 
+    const fileUploadRef = useRef(null);
+
     const handleFormChange = (event, parameter) => {
         postSubmitMsg && setPostSubmitMsg(undefined);
 
@@ -45,7 +47,7 @@ export default function PostingPage() {
     const validateForm = () => {
         let formIsComplete = true;
 
-        const errorUpdatedForm = emptyForm;
+        const errorUpdatedForm = Object.assign({}, emptyForm);
 
         for (const [field, data] of Object.entries(formData)) {
             errorUpdatedForm[field] = {value: data.value, error: !data.value};
@@ -78,8 +80,12 @@ export default function PostingPage() {
                     ? "Success: Clothing Item is now live!"
                     : "Error: Something in the backend messed up sorry.";
                 setPostSubmitMsg({success: apiResponse.success, value: msg});
+
+                if (apiResponse.success) {
+                    setFormData(emptyForm);
+                    fileUploadRef.current.value = null;
+                }
             });
-            setFormData(emptyForm);
         } else {
             setPostSubmitMsg({success: false, value: "Error: Form not complete."});
         }
@@ -163,6 +169,7 @@ export default function PostingPage() {
                     <input
                         type="file"
                         id="clothingImg"
+                        ref={fileUploadRef}
                         className={`formUpload${formData.image.error ? " formInput--error" : ""}`}
                         name="clothingImg"
                         accept="image/png, image/jpeg"

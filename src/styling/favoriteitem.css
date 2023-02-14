@@ -1,0 +1,19 @@
+.favoriteItemCont {
+    display: flex;
+    align-items: center;
+    border: #cbcbcb solid 1px;
+    padding: 5px 10px;
+    border-radius: 15px;
+}
+
+.favIcon {
+    color: #fc4040;
+}
+
+.favIcon--liked {
+    color: #faa2a2;
+}
+
+.favoriteCount {
+    margin: 0 0.5rem;
+}

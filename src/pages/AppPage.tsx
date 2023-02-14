@@ -11,6 +11,7 @@ export default function AppPage() {
     useEffect(() => {
         getCategories().then((result) => {
             const retrievedCategories = result.categories;
+
             setCategories(retrievedCategories);
             retrievedCategories.forEach((category) => {
                 getClothingFromCategory(category, 5).then((result) => {

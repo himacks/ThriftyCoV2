@@ -45,6 +45,23 @@ export const getClothingFromCategory = (
     });
 };
 
+export const updateItemLikes = (collection, id, increase: boolean) => {
+    console.log(`updating likes for ${id}`);
+
+    const data = {collection: collection, clothingId: id, increase: increase};
+
+    return new Promise((resolve, reject) => {
+        axios
+            .post(`${getBaseURL()}/updateItemLikes`, data)
+            .then(function (response) {
+                resolve(response.data);
+            })
+            .catch(function (error) {
+                reject(error);
+            });
+    });
+};
+
 export const postClothingItem = (fileFormData) => {
     return new Promise((resolve, reject) => {
         axios
