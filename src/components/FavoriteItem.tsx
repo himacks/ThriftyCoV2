@@ -3,14 +3,9 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import {updateItemLikes} from "../helpers";
 import "../styling/favoriteitem.css";
 
-export default function FavoriteItem({count, category, id}) {
-    const [likeCount, setLikeCount] = useState(count);
-    const [liked, setLiked] = useState(false);
-
-    console.log(category, count);
-
+export default function FavoriteItem({category, liked, setLiked, likedCount, setLikedCount, id}) {
     const handleClick = () => {
-        setLikeCount(!liked ? likeCount + 1 : likeCount - 1);
+        setLikedCount(!liked ? likedCount + 1 : likedCount - 1);
         setLiked(!liked);
         updateItemLikes(category, id, !liked);
     };
@@ -21,7 +16,7 @@ export default function FavoriteItem({count, category, id}) {
                 className={`favIcon ${liked ? " favIcon--liked" : ""}`}
                 onClick={handleClick}
             />
-            <div className={`favoriteCount`}>{likeCount}</div>
+            <div className={`favoriteCount`}>{likedCount}</div>
         </div>
     );
 }

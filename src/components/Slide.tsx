@@ -1,11 +1,15 @@
-import React from "react";
+import React, {useState} from "react";
 
 import FavoriteItem from "./FavoriteItem";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
+import AlarmIcon from "@mui/icons-material/Alarm";
 
 import "../styling/slide.css";
 
 export default function Slide({category, name, imageSrc, store, timestamp, price, likeCount, id}) {
+    const [liked, setLiked] = useState(false);
+    const [likedCount, setLikedCount] = useState(likeCount);
+
     return (
         <div className="slideCont">
             <div className="slideImgCont">
@@ -14,13 +18,23 @@ export default function Slide({category, name, imageSrc, store, timestamp, price
             <div className="slideInfoCont">
                 <div className="slideHeaderCont">
                     <span className="slideTitle">{name}</span>
-                    <FavoriteItem key={timestamp} category={category} count={likeCount} id={id} />
+                    <FavoriteItem
+                        category={category}
+                        liked={liked}
+                        setLiked={setLiked}
+                        likedCount={likedCount}
+                        setLikedCount={setLikedCount}
+                        id={id}
+                    />
                 </div>
                 <span className="slidePrice">{price}</span>
-                <span className="slideTimeStamp">{timestamp}</span>
                 <div className="slideStoreCont">
                     <LocationOnIcon />
                     <span className="slideStore">{store}</span>
+                </div>
+                <div className="slideTimeStampCont">
+                    <AlarmIcon />
+                    <span className="slideTimeStamp">{timestamp}</span>
                 </div>
             </div>
         </div>

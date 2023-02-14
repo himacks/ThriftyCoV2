@@ -18,7 +18,7 @@ export default function PostingPage() {
         title: {value: "", error: false},
         store: {value: "", error: false},
         category: {value: "", error: false},
-        date: {value: "butterfly", error: false},
+        date: {value: "butterfly", error: false}, //need this because when we check for form validation this must be filled but its not filled here its filled on the serverside
         price: {value: "", error: false},
         image: {value: "", error: false}
     };
@@ -161,7 +161,7 @@ export default function PostingPage() {
                         <option value="Orange Circle Antique Mall">
                             Orange Circle Antique Mall
                         </option>
-                        <option value="Orange Circle Antique Mall">{`McFly's Thrift Store`}</option>
+                        <option value="McFly's Thrift Store">{`McFly's Thrift Store`}</option>
                     </select>
                 </div>
                 <div className="inputCont imageCont">

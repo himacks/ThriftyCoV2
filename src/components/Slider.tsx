@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 
-import Slide from "./Slide";
+import Category from "./Category";
 
 import "../styling/slider.css";
 
@@ -9,7 +9,7 @@ export default function Slider({categories, clothing}) {
 
     return (
         <>
-            <div className="categoryCont">
+            <div className="categoryListCont">
                 {categories.map((category, index) => {
                     return (
                         <div
@@ -28,22 +28,16 @@ export default function Slider({categories, clothing}) {
             </div>
             <div className="categoryTitle">{activeSlide}</div>
             <div className="itemCont">
-                {clothing &&
-                    clothing[activeSlide].map((slideData, i) => {
-                        return (
-                            <Slide
-                                key={i}
-                                category={activeSlide}
-                                likeCount={slideData.likeCount}
-                                id={slideData._id}
-                                name={slideData.title}
-                                imageSrc={slideData.image}
-                                store={slideData.store}
-                                timestamp={slideData.date}
-                                price={slideData.price}
-                            />
-                        );
-                    })}
+                {categories.map((category, index) => {
+                    return (
+                        <Category
+                            key={index}
+                            category={category}
+                            clothingData={clothing[category]}
+                            isActive={activeSlide === category}
+                        />
+                    );
+                })}
             </div>
         </>
     );

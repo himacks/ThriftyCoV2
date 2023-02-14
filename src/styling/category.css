@@ -1,0 +1,9 @@
+.categoryCont {
+    display: none;
+}
+
+.categoryCont--active {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
