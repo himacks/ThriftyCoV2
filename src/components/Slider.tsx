@@ -32,6 +32,7 @@ export default function Slider({categories, clothing}) {
                     return (
                         <Category
                             key={index}
+                            id={index}
                             category={category}
                             clothingData={clothing[category]}
                             isActive={activeSlide === category}

@@ -3,12 +3,9 @@ import Slide from "./Slide";
 
 import "../styling/category.css";
 
-export default function Category({clothingData, category, isActive}) {
+export default function Category({id, clothingData, category, isActive}) {
     return (
-        <div
-            key={Math.random()}
-            className={`categoryCont${isActive ? " categoryCont--active" : ""}`}
-        >
+        <div key={id} className={`categoryCont${isActive ? " categoryCont--active" : ""}`}>
             {clothingData &&
                 clothingData.map((slideData, index) => {
                     return (
