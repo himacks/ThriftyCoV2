@@ -16,7 +16,7 @@ export default function PostingPage({categories, connectedStores}: PostingPagePr
     const emptyForm = {
         title: {value: "", error: false},
         store: {value: {store: ""}, error: false},
-        category: {value: {category: ""}, error: false},
+        category: {value: "", error: false},
         date: {value: "butterfly", error: false}, //need this because when we check for form validation this must be filled but its not filled here its filled on the serverside
         price: {value: "", error: false},
         image: {value: "", error: false}
@@ -40,7 +40,11 @@ export default function PostingPage({categories, connectedStores}: PostingPagePr
             setSelectedFile(file);
             value = file.name;
         } else if (["category", "store"].includes(parameter)) {
-            value = menuVal[parameter];
+            if (menuVal) {
+                value = menuVal[parameter] || menuVal;
+            } else {
+                value = "";
+            }
         }
 
         setFormData({...formData, ...{[parameter]: {value: value, error: false}}});
@@ -69,12 +73,10 @@ export default function PostingPage({categories, connectedStores}: PostingPagePr
             formFileData.append("title", formData.title.value);
             formFileData.append("price", formData.price.value);
             formFileData.append("store", formData.store.value.store);
-            formFileData.append("category", formData.category.value.category);
+            formFileData.append("category", formData.category.value);
             formFileData.append(
                 "fileName",
-                `${formData.category.value.category}-${Date.now()}.${
-                    selectedFile.type.split("/")[1]
-                }`
+                `${formData.category.value}-${Date.now()}.${selectedFile.type.split("/")[1]}`
             );
             formFileData.append("timeIndex", `${Date.now()}`);
             formFileData.append("files", selectedFile);
@@ -131,9 +133,7 @@ export default function PostingPage({categories, connectedStores}: PostingPagePr
                         </div>
                         <div className="inputCont categoriesCont">
                             <Autocomplete
-                                value={
-                                    formData.category.value ? formData.category.value.category : ""
-                                }
+                                value={formData.category.value}
                                 onChange={(event, newValue) => {
                                     if (typeof newValue === "string") {
                                         handleFormChange(event, "category", newValue);
@@ -141,7 +141,7 @@ export default function PostingPage({categories, connectedStores}: PostingPagePr
                                         // Create a new value from the user input
                                         handleFormChange(event, "category", newValue.inputValue);
                                     } else {
-                                        handleFormChange(event, "category", {category: newValue});
+                                        handleFormChange(event, "category", newValue);
                                     }
                                 }}
                                 filterOptions={(options, params) => {
@@ -176,6 +176,7 @@ export default function PostingPage({categories, connectedStores}: PostingPagePr
                                         return option.inputValue;
                                     }
                                     // Regular option
+
                                     return option.category;
                                 }}
                                 renderOption={(props, option) => (
@@ -190,7 +191,7 @@ export default function PostingPage({categories, connectedStores}: PostingPagePr
                         </div>
                         <div className="inputCont locationCont">
                             <Autocomplete
-                                value={formData.store.value ? formData.store.value.store : ""}
+                                value={formData.store.value.store}
                                 onChange={(event, newValue) => {
                                     if (typeof newValue === "string") {
                                         handleFormChange(event, "store", newValue);
