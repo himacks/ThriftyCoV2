@@ -77,11 +77,26 @@
 }
 
 .loadingCont {
-    margin: 4rem 0;
+    position: fixed;
+    z-index: 2;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    background:rgba(30, 30, 30, 0.5);
+}
+
+.loadingAnim {
+    color: #ffffff;
+}
+
+.loadingText {
+    margin: 10px 0 100px 0;
+    color: #ffffff;
 }
 
 .submitMsgText--success {

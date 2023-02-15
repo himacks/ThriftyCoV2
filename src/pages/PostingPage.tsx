@@ -285,7 +285,7 @@ export default function PostingPage() {
                 )}
                 {postSubmitMsg && postSubmitMsg.value === "loading" ? (
                     <div className="loadingCont">
-                        <CircularProgress color="inherit" />
+                        <CircularProgress className="loadingAnim" color="inherit" />
                         <div className="loadingText">Uploading Item...</div>
                     </div>
                 ) : postSubmitMsg ? (
