@@ -47,7 +47,7 @@ export default function PostingPage() {
             setSelectedFile(file);
             value = file.name;
         } else if (["category", "store"].includes(parameter)) {
-            value = menuVal;
+            value = menuVal[parameter];
         }
 
         setFormData({...formData, ...{[parameter]: {value: value, error: false}}});
@@ -141,18 +141,12 @@ export default function PostingPage() {
                                 value={formData.category.value.category}
                                 onChange={(event, newValue) => {
                                     if (typeof newValue === "string") {
-                                        handleFormChange(event, "category", {
-                                            category: newValue
-                                        });
+                                        handleFormChange(event, "category", newValue);
                                     } else if (newValue && newValue.inputValue) {
                                         // Create a new value from the user input
-                                        handleFormChange(event, "category", {
-                                            category: newValue.inputValue
-                                        });
+                                        handleFormChange(event, "category", newValue.inputValue);
                                     } else {
-                                        handleFormChange(event, "category", {
-                                            category: newValue
-                                        });
+                                        handleFormChange(event, "category", {category: newValue});
                                     }
                                 }}
                                 filterOptions={(options, params) => {
@@ -204,18 +198,12 @@ export default function PostingPage() {
                                 value={formData.store.value.store}
                                 onChange={(event, newValue) => {
                                     if (typeof newValue === "string") {
-                                        handleFormChange(event, "store", {
-                                            store: newValue
-                                        });
+                                        handleFormChange(event, "store", newValue);
                                     } else if (newValue && newValue.inputValue) {
                                         // Create a new value from the user input
-                                        handleFormChange(event, "store", {
-                                            store: newValue.inputValue
-                                        });
+                                        handleFormChange(event, "store", newValue.inputValue);
                                     } else {
-                                        handleFormChange(event, "store", {
-                                            store: newValue
-                                        });
+                                        handleFormChange(event, "store", {store: newValue});
                                     }
                                 }}
                                 filterOptions={(options, params) => {
