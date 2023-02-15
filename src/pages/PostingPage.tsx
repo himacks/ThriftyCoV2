@@ -7,19 +7,12 @@ import Autocomplete, {createFilterOptions} from "@mui/material/Autocomplete";
 
 import "../styling/postingpage.css";
 
-export default function PostingPage() {
-    const [categories, setCategories] = useState<CategoryType[]>(undefined);
-    const [connectedStores, setConnectedStores] = useState<StoreType[]>(undefined);
+type PostingPageProps = {
+    categories: CategoryType[];
+    connectedStores: StoreType[];
+};
 
-    useEffect(() => {
-        getCategories().then((result) => {
-            setCategories(result.categories);
-        });
-        getStores().then((result) => {
-            setConnectedStores(result.stores);
-        });
-    }, []);
-
+export default function PostingPage({categories, connectedStores}: PostingPageProps) {
     const emptyForm = {
         title: {value: "", error: false},
         store: {value: {store: ""}, error: false},

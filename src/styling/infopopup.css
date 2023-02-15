@@ -1,0 +1,23 @@
+.popupBackground {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    top: 0;
+    bottom: 0;
+    background: rgba(5, 5, 5, 0.5);
+}
+
+.popupCont {
+    background-color: #ffffff;
+    width: 90%;
+    height: 80%;
+    border-radius: 2rem;
+}
+
+.popupHeader {
+    display: flex;
+    padding: 2rem;
+}
