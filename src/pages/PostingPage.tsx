@@ -15,7 +15,7 @@ type PostingPageProps = {
 export default function PostingPage({categories, connectedStores}: PostingPageProps) {
     const emptyForm = {
         title: {value: "", error: false},
-        store: {value: {store: ""}, error: false},
+        store: {value: "", error: false},
         category: {value: "", error: false},
         date: {value: "butterfly", error: false}, //need this because when we check for form validation this must be filled but its not filled here its filled on the serverside
         price: {value: "", error: false},
@@ -72,7 +72,7 @@ export default function PostingPage({categories, connectedStores}: PostingPagePr
             const formFileData = new FormData();
             formFileData.append("title", formData.title.value);
             formFileData.append("price", formData.price.value);
-            formFileData.append("store", formData.store.value.store);
+            formFileData.append("store", formData.store.value);
             formFileData.append("category", formData.category.value);
             formFileData.append(
                 "fileName",
@@ -191,7 +191,7 @@ export default function PostingPage({categories, connectedStores}: PostingPagePr
                         </div>
                         <div className="inputCont locationCont">
                             <Autocomplete
-                                value={formData.store.value.store}
+                                value={formData.store.value}
                                 onChange={(event, newValue) => {
                                     if (typeof newValue === "string") {
                                         handleFormChange(event, "store", newValue);
@@ -199,7 +199,7 @@ export default function PostingPage({categories, connectedStores}: PostingPagePr
                                         // Create a new value from the user input
                                         handleFormChange(event, "store", newValue.inputValue);
                                     } else {
-                                        handleFormChange(event, "store", {store: newValue});
+                                        handleFormChange(event, "store", newValue);
                                     }
                                 }}
                                 filterOptions={(options, params) => {
