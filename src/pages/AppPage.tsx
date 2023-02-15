@@ -10,7 +10,9 @@ export default function AppPage() {
 
     useEffect(() => {
         getCategories().then((result) => {
-            const retrievedCategories = result.categories;
+            const retrievedCategories = result.categories.map(
+                (categoryObj) => categoryObj.category
+            );
 
             setCategories(retrievedCategories);
             retrievedCategories.forEach((category) => {
@@ -24,8 +26,11 @@ export default function AppPage() {
     }, []);
 
     return (
-        <div className="appCont">
-            {categories && clothing && <Slider categories={categories} clothing={clothing} />}
-        </div>
+        <>
+            <div className="bgCont" />
+            <div className="appCont">
+                {categories && clothing && <Slider categories={categories} clothing={clothing} />}
+            </div>
+        </>
     );
 }

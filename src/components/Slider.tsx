@@ -9,24 +9,28 @@ export default function Slider({categories, clothing}) {
 
     return (
         <>
-            <div className="categoryListCont">
-                {categories.map((category, index) => {
-                    return (
-                        <div
-                            className={`categoryButton${
-                                activeSlide === category ? " categoryButton--active" : ""
-                            }`}
-                            onClick={() => {
-                                setActiveSlide(category);
-                            }}
-                            key={index}
-                        >
-                            {category}
-                        </div>
-                    );
-                })}
+            <div className="sliderHeaderCont">
+                <div className="categoryListCont">
+                    {categories.map((category, index) => {
+                        return (
+                            <div
+                                className={`categoryButton${
+                                    activeSlide === category ? " categoryButton--active" : ""
+                                }`}
+                                onClick={() => {
+                                    setActiveSlide(category);
+                                }}
+                                key={index}
+                            >
+                                {category}
+                            </div>
+                        );
+                    })}
+                </div>
+                <div className="categoryTitleCont">
+                    <div className="categoryTitle">{activeSlide}</div>
+                </div>
             </div>
-            <div className="categoryTitle">{activeSlide}</div>
             <div className="itemCont">
                 {categories.map((category, index) => {
                     return (

@@ -1,8 +1,10 @@
 .formBackground {
-    background-color: #f7f4f4;
     padding: 2rem;
     height: calc(100% - 4rem);
+    position: relative;
+    z-index: 1;
 }
+
 .formCont {
     display: flex;
     flex-direction: column;

@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const TESTING = false;
+const TESTING = true;
 
 export type SlideData = {
     _id: unknown;
@@ -16,6 +16,18 @@ interface CategoryData {
     [name: string]: SlideData[];
 }
 
+export interface StoreType {
+    _id?: unknown;
+    inputValue?: string;
+    store: string;
+}
+
+export interface CategoryType {
+    _id?: unknown;
+    inputValue?: string;
+    category: string;
+}
+
 const getBaseURL = () => {
     return TESTING ? "http://localhost:3030" : "https://thrifty-co-backend.vercel.app";
 };
@@ -24,9 +36,19 @@ export const getImgSrc = (imageSrc) => {
     return `${getBaseURL()}/images/${imageSrc}`;
 };
 
-export const getCategories = (): Promise<{categories: string[]}> => {
+export const getCategories = (): Promise<{categories: CategoryType[]}> => {
     return new Promise((resolve) => {
         axios.get(`${getBaseURL()}/getCategories`).then((result) => {
+            console.log(result.data);
+            resolve(result.data);
+        });
+    });
+};
+
+export const getStores = (): Promise<{stores: StoreType[]}> => {
+    return new Promise((resolve) => {
+        axios.get(`${getBaseURL()}/getStores`).then((result) => {
+            console.log(result.data);
             resolve(result.data);
         });
     });

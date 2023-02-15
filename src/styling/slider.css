@@ -1,13 +1,28 @@
+
+.sliderHeaderCont {
+    margin-bottom: 2rem;
+    box-shadow: 0px 2px 40px #00000020, 0px 2px 5px #00000030;
+}
+
 .categoryListCont {
     display: flex;
-    justify-content: center;
-    margin: 1rem 0;
+    background-color: transparent;
+    padding: 15px 25px;
+    overflow: hidden;
+    overflow-x: scroll;
+    max-width: 100%;
+}
+
+.categoryTitleCont {
+    background-color: #f6f5f5;
+    width: 100%;
+    padding: 1rem 0;
+    box-shadow: 0px 2px 40px #00000020, 0px 2px 5px #00000030;
 }
 
 .categoryTitle {
     text-align: center;
-    font-size: 24px;
-    margin: 1rem 0;
+    font-size: 32px;
     font-weight: 500;
 }
 
