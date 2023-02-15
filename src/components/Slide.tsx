@@ -16,9 +16,9 @@ export default function Slide({category, name, imageSrc, store, timestamp, price
         <>
             <div
                 className="slideCont"
-                onClick={() => {
-                    setOpenPopup(true);
-                }}
+                // onClick={() => {
+                //     setOpenPopup(true);
+                // }}
             >
                 <div className="slideImgCont">
                     <img className="slideImg" alt="image" src={imageSrc} />
