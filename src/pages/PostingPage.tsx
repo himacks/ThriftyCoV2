@@ -131,7 +131,9 @@ export default function PostingPage({categories, connectedStores}: PostingPagePr
                         </div>
                         <div className="inputCont categoriesCont">
                             <Autocomplete
-                                value={formData.category.value.category}
+                                value={
+                                    formData.category.value ? formData.category.value.category : ""
+                                }
                                 onChange={(event, newValue) => {
                                     if (typeof newValue === "string") {
                                         handleFormChange(event, "category", newValue);
@@ -188,7 +190,7 @@ export default function PostingPage({categories, connectedStores}: PostingPagePr
                         </div>
                         <div className="inputCont locationCont">
                             <Autocomplete
-                                value={formData.store.value.store}
+                                value={formData.store.value ? formData.store.value.store : ""}
                                 onChange={(event, newValue) => {
                                     if (typeof newValue === "string") {
                                         handleFormChange(event, "store", newValue);
