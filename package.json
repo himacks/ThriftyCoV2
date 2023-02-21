@@ -48,8 +48,10 @@
     "@mui/icons-material": "^5.11.0",
     "@mui/material": "^5.11.8",
     "axios": "^1.3.2",
+    "qrcode": "^1.5.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-qr-scanner": "^1.0.0-alpha.11",
     "react-router-dom": "^6.8.1"
   },
   "bugs": {

@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useRef} from "react";
 
 import FavoriteItem from "./FavoriteItem";
 import InfoPopup from "./InfoPopup";
@@ -12,21 +12,33 @@ export default function Slide({category, name, imageSrc, store, timestamp, price
     const [likedCount, setLikedCount] = useState(likeCount);
     const [openPopup, setOpenPopup] = useState(false);
 
+    const likeRef = useRef(null);
+
+    const handleClick = (event) => {
+        if (event.target.className.includes) {
+            if (!event.target.className.includes("favIconArea")) {
+                setOpenPopup(true);
+            }
+        } else if (event.target.tagName !== "path") {
+            setOpenPopup(true);
+        }
+    };
+
     return (
         <>
-            <div
-                className="slideCont"
-                // onClick={() => {
-                //     setOpenPopup(true);
-                // }}
-            >
+            <div className="slideCont" onClick={handleClick}>
                 <div className="slideImgCont">
                     <img className="slideImg" alt="image" src={imageSrc} />
                 </div>
                 <div className="slideInfoCont">
                     <div className="slideHeaderCont">
-                        <span className="slideTitle">{name}</span>
+                        <div className="slideTitleCont">
+                            <span className="slideTitle">{name}</span>
+                            <span className="slidePrice">{price}</span>
+                        </div>
+
                         <FavoriteItem
+                            objRef={likeRef}
                             category={category}
                             liked={liked}
                             setLiked={setLiked}
@@ -35,7 +47,6 @@ export default function Slide({category, name, imageSrc, store, timestamp, price
                             id={id}
                         />
                     </div>
-                    <span className="slidePrice">{price}</span>
                     <div className="slideStoreCont">
                         <LocationOnIcon />
                         <span className="slideStore">{store}</span>
@@ -46,7 +57,9 @@ export default function Slide({category, name, imageSrc, store, timestamp, price
                     </div>
                 </div>
             </div>
-            {openPopup && <InfoPopup togglePopup={setOpenPopup} />}
+            {openPopup && (
+                <InfoPopup itemName={name} category={category} id={id} togglePopup={setOpenPopup} />
+            )}
         </>
     );
 }

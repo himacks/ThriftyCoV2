@@ -7,3 +7,12 @@
     align-items: center;
     flex-direction: column;
 }
+
+/* Desktop Styling ... will add breakpoints to adjust based on dimensions */
+@media (min-width: 480px) {
+    .categoryCont--active {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-evenly;
+    }
+}

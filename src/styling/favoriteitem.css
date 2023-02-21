@@ -7,6 +7,10 @@
     height: min-content;
 }
 
+.favItemBufferCont {
+    padding: 10px;
+}
+
 .favIcon {
     color: #fc4040;
 }

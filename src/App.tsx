@@ -4,6 +4,7 @@ import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
 import AppPage from "./pages/AppPage";
 import FAQPage from "./pages/FAQPage";
 import PostingPage from "./pages/PostingPage";
+import ScanningPage from "./pages/ScanningPage";
 
 import {getCategories, getStores, getClothingFromCategory, StoreType} from "./helpers";
 
@@ -23,11 +24,11 @@ export default function App() {
 
             const retrievedCategories = categories.map((categoryObj) => categoryObj.category);
 
-            retrievedCategories.forEach((category) => {
-                getClothingFromCategory(category, 5).then((result) => {
-                    setClothing((clothing) => {
-                        return {...clothing, ...{[category]: result.items}};
-                    });
+            const initialCategory = retrievedCategories[0];
+
+            getClothingFromCategory(initialCategory, 5).then((result) => {
+                setClothing((clothing) => {
+                    return {...clothing, ...{[initialCategory]: result.items}};
                 });
             });
         });
@@ -39,9 +40,16 @@ export default function App() {
                 <Routes>
                     <Route
                         path="/"
-                        element={<AppPage categories={categories} clothing={clothing} />}
+                        element={
+                            <AppPage
+                                setClothing={setClothing}
+                                categories={categories}
+                                clothing={clothing}
+                            />
+                        }
                     />
                     <Route path="/faq" element={<FAQPage />} />
+                    <Route path="/testing" element={<ScanningPage />} />
                     <Route
                         path="/post"
                         element={

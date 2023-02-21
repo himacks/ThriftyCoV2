@@ -12,12 +12,37 @@
 
 .popupCont {
     background-color: #ffffff;
-    width: 90%;
+    width: calc(90% - 2rem);
     height: 80%;
     border-radius: 2rem;
+    padding: 1rem;
+
+}
+
+@media (min-width: 480px) {
+    .popupCont {
+        width: calc(80% - 2rem);
+        max-width: calc(800px - 2rem);
+    }
+}
+
+.closePopUpCont {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
 }
 
 .popupHeader {
     display: flex;
-    padding: 2rem;
+    justify-content: center;    
+}
+
+.popupTitle {
+    font-size: 25px;
+    font-weight: 500;
+}
+
+.qrCodeCont {
+    display: flex;
+    justify-content: center;
 }

@@ -2,10 +2,22 @@ import React, {useEffect, useState} from "react";
 
 import Category from "./Category";
 
+import {getClothingFromCategory} from "../helpers";
+
 import "../styling/slider.css";
 
-export default function Slider({categories, clothing}) {
+export default function Slider({setClothing, categories, clothing}) {
     const [activeSlide, setActiveSlide] = useState(categories[0]);
+
+    useEffect(() => {
+        if (!clothing[activeSlide]) {
+            getClothingFromCategory(activeSlide, 5).then((result) => {
+                setClothing((clothing) => {
+                    return {...clothing, ...{[activeSlide]: result.items}};
+                });
+            });
+        }
+    }, [activeSlide, clothing, setClothing]);
 
     return (
         <>

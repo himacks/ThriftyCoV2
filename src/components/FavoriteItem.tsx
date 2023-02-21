@@ -1,9 +1,17 @@
-import React, {useState} from "react";
+import React from "react";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import {updateItemLikes} from "../helpers";
 import "../styling/favoriteitem.css";
 
-export default function FavoriteItem({category, liked, setLiked, likedCount, setLikedCount, id}) {
+export default function FavoriteItem({
+    objRef,
+    category,
+    liked,
+    setLiked,
+    likedCount,
+    setLikedCount,
+    id
+}) {
     const handleClick = () => {
         setLikedCount(!liked ? likedCount + 1 : likedCount - 1);
         setLiked(!liked);
@@ -11,12 +19,11 @@ export default function FavoriteItem({category, liked, setLiked, likedCount, set
     };
 
     return (
-        <div className="favoriteItemCont">
-            <FavoriteIcon
-                className={`favIcon ${liked ? " favIcon--liked" : ""}`}
-                onClick={handleClick}
-            />
-            <div className={`favoriteCount`}>{likedCount}</div>
+        <div ref={objRef} className="favItemBufferCont favIconArea">
+            <div className="favoriteItemCont favIconArea" onClick={handleClick}>
+                <FavoriteIcon className={`favIcon favIconArea${liked ? " favIcon--liked" : ""}`} />
+                <div className={`favIconArea favoriteCount`}>{likedCount}</div>
+            </div>
         </div>
     );
 }

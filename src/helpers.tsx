@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const TESTING = false;
+const TESTING = true;
 
 export type SlideData = {
     _id: unknown;
@@ -39,7 +39,6 @@ export const getImgSrc = (imageSrc) => {
 export const getCategories = (): Promise<{categories: CategoryType[]}> => {
     return new Promise((resolve) => {
         axios.get(`${getBaseURL()}/getCategories`).then((result) => {
-            console.log(result.data);
             resolve(result.data);
         });
     });
@@ -48,7 +47,6 @@ export const getCategories = (): Promise<{categories: CategoryType[]}> => {
 export const getStores = (): Promise<{stores: StoreType[]}> => {
     return new Promise((resolve) => {
         axios.get(`${getBaseURL()}/getStores`).then((result) => {
-            console.log(result.data);
             resolve(result.data);
         });
     });
@@ -65,6 +63,10 @@ export const getClothingFromCategory = (
             resolve(result.data);
         });
     });
+};
+
+export const getItemFromId = () => {
+    1 + 1;
 };
 
 export const updateItemLikes = (collection, id, increase: boolean) => {
