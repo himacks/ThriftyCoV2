@@ -7,8 +7,6 @@ export default function ScanningPage() {
     const [qrData, setQrData] = useState(undefined);
 
     const handleScan = (data) => {
-        console.log(data);
-
         if (data) {
             setQrData(JSON.parse(data.text));
         }
