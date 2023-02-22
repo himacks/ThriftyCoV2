@@ -1,10 +1,12 @@
-import React, {useState} from "react";
-import QrReader from "react-qr-scanner";
+import React, {useState, useRef} from "react";
+import {QrReader} from "react-qr-reader";
 
 import "../styling/scanningpage.css";
 
 export default function ScanningPage() {
     const [qrData, setQrData] = useState(undefined);
+
+    const qrReaderRef = useRef(null);
 
     const handleScan = (data) => {
         if (data) {
@@ -15,16 +17,26 @@ export default function ScanningPage() {
         console.error(err);
     };
 
+    const openImageDialog = () => {
+        qrReaderRef.current.openImageDialog();
+    };
+
     return (
         <div className="qrReaderCont">
             {!qrData ? (
-                <QrReader
-                    delay={2000}
-                    className="qrReader"
-                    facingMode={"rear"}
-                    onError={handleError}
-                    onScan={handleScan}
-                />
+                <>
+                    <QrReader
+                        constraints={{
+                            facingMode: "environment"
+                        }}
+                        onResult={(result, error) => {
+                            if (result) {
+                                setQrData(JSON.parse(result.getText()));
+                            }
+                        }}
+                        className="qrReader"
+                    />
+                </>
             ) : (
                 <div className="itemCont">{`Category: ${qrData.category}, ID: ${qrData.id}`}</div>
             )}
