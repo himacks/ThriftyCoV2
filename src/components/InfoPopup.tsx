@@ -31,46 +31,48 @@ export default function InfoPopup({
     return (
         <div ref={bgRef} onClick={handleClick} className="popupBackground">
             <div className="popupContBackground">
+                <div className="closePopUpCont">
+                    <CloseIcon
+                        className="closePopUpBtn"
+                        fontSize="medium"
+                        onClick={() => {
+                            togglePopup(false);
+                        }}
+                    />
+                </div>
                 <div className="popupCont">
-                    <div className="closePopUpCont">
-                        <CloseIcon
-                            className="closePopUpBtn"
-                            fontSize="medium"
-                            onClick={() => {
-                                togglePopup(false);
-                            }}
-                        />
-                    </div>
                     <div className={"popupImgCont"}>
                         <img className={`popupImg`} alt="image" src={slideData.image} />
                     </div>
-                    <div className="popupHeaderCont">
-                        {/* This is going to contain, the item picture, a map pin of the store, a forward
+                    <div className={"popupInfoCont"}>
+                        <div className="popupHeaderCont">
+                            {/* This is going to contain, the item picture, a map pin of the store, a forward
                     button to send you straight to google maps or apple maps to get directions,
                     store address, etc. */}
-                        <div className="popupTitle">{slideData.title}</div>
-                        <div className="popupPrice">{slideData.price}</div>
-                        <div className="popupLocationCont">
-                            <div className="popupStoreName">{slideData.store}</div>
-                            <a
-                                href={`https://www.google.com/maps?saddr=Your+Location&daddr=${storeData.address.replace(
-                                    " ",
-                                    "+"
-                                )}`}
-                                className="gMapsFwdBtn"
-                            >
-                                <DirectionsIcon />
-                                Get Directions
-                            </a>
+                            <div className="popupTitle">{slideData.title}</div>
+                            <div className="popupPrice">{slideData.price}</div>
+                            <div className="popupLocationCont">
+                                <div className="popupStoreName">{slideData.store}</div>
+                                <a
+                                    href={`https://www.google.com/maps?saddr=Your+Location&daddr=${storeData.address.replace(
+                                        " ",
+                                        "+"
+                                    )}`}
+                                    className="gMapsFwdBtn"
+                                >
+                                    <DirectionsIcon />
+                                    Get Directions
+                                </a>
+                            </div>
                         </div>
-                    </div>
-                    <div className={"popupInfoCont"}>
-                        <div className="popupInfoText">
-                            Show this QR Code to the cashier for a discount!
+                        <div className={"popupHelpCont"}>
+                            <div className="popupHelpText">
+                                Show this QR Code to the cashier for a discount!
+                            </div>
                         </div>
-                    </div>
-                    <div className="qrCodeCont">
-                        <canvas className="qrCodeDisplay" ref={canvasRef} />
+                        <div className="qrCodeCont">
+                            <canvas className="qrCodeDisplay" ref={canvasRef} />
+                        </div>
                     </div>
                 </div>
             </div>

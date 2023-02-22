@@ -13,37 +13,40 @@
 
 .popupCont {
     height: 100%;
-    overflow-y: scroll;
+    display: flex;
+}
+
+.popupImg {
+    border-radius: 2rem;
+    width: 100%;
+    height: auto;
 }
 
 .popupContBackground {
     padding: 1rem;
     background-color: #ffffff;
-    width: calc(90% - 2rem);
-    height: 80%;
     border-radius: 2rem;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
 }
 
-.popupInfoCont {
+.popupHelpCont {
     margin: 0 4rem;
 }
 
-.popupInfoText {
+.popupHelpCont {
     text-align: center;
     font-weight: 500;
-}
-
-@media (min-width: 480px) {
-    .popupCont {
-        width: calc(80% - 2rem);
-        max-width: calc(800px - 2rem);
-    }
 }
 
 .closePopUpCont {
     width: 100%;
     display: flex;
+    background-color: transparent;
     justify-content: flex-end;
+    margin-bottom: 0.5rem;
 }
 
 .popupHeaderCont {
@@ -96,13 +99,13 @@
 
 .popupImgCont {
     margin: 0 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
-.popupImg {
-    border-radius: 2rem;
-    width: 100%;
-    height: auto;
-}
+
 
 .qrCodeCont {
     display: flex;
@@ -114,4 +117,47 @@
     height: 70vw !important;
     max-width: 300px;
     max-height: 300px;
+}
+
+@media (max-width: 480px) {
+
+    .popupCont {
+        flex-direction: column;
+        overflow-y: scroll;
+    }
+
+    .popupContBackground {
+        width: calc(90% - 2rem);
+        height: 80%;
+    }
+}
+
+
+
+
+@media (min-width: 480px) {
+    .popupContBackground {
+        width: min-content;
+        height: 80%;
+    }
+
+    .popupHeaderCont {
+        margin: 1rem 0;
+    }
+
+    .popupCont {
+        flex-direction: row;
+    }
+
+    .popupInfoCont {
+        overflow-y: scroll;
+    }
+
+    .popupLocationCont {
+        margin: 0;
+    }
+    
+    .popupImg {
+        width: 30vw;
+    }
 }
