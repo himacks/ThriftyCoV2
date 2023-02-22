@@ -1,31 +1,36 @@
 import React, {useState, useEffect} from "react";
 import {QrReader} from "react-qr-reader";
 
-import {getItemFromId, SlideData} from "../helpers";
+import {getItemFromId, SlideData, markItemSold} from "../helpers";
 import Slide from "../components/Slide";
 
 import "../styling/scanningpage.css";
 
 export default function ScanningPage() {
     const [itemData, setItemData] = useState<SlideData>(undefined);
+    const [itemSold, setItemSold] = useState(false);
 
-    // useEffect(() => {
-    //     !itemData &&
-    //         setItemData({
-    //             _id: "63ed4d6ebfb417406cee3a4d",
-    //             title: "Sick Tote Bag",
-    //             store: "Goodwill RARE",
-    //             date: "2/15/2023 1:23PM",
-    //             price: "$12.99",
-    //             image: "https://d1vwklfh6dc59p.cloudfront.net/Bags-1676496237347.jpeg",
-    //             timeIndex: "1676496237347",
-    //             likeCount: 0
-    //         });
-    // }, [itemData]);
+    const handleQRConfirm = () => {
+        markItemSold(itemData.category, itemData._id).then(() => {
+            setItemSold(true);
+
+            setTimeout(() => {
+                setItemData(undefined);
+            }, 3000);
+        });
+    };
+
+    const handleQRCancel = () => {
+        setItemData(undefined);
+    };
 
     const handleQRFind = (data) => {
         getItemFromId(data.category, data.id).then((itemData) => {
-            setItemData(itemData);
+            if (itemData.isSold) {
+                setItemSold(true);
+                console.log("item is already sold");
+            }
+            setItemData({...{category: data.category}, ...itemData});
         });
     };
 
@@ -46,17 +51,33 @@ export default function ScanningPage() {
                     />
                 </>
             ) : (
-                <Slide
-                    category={undefined}
-                    minimal={true}
-                    likeCount={itemData.likeCount}
-                    id={itemData._id}
-                    name={itemData.title}
-                    imageSrc={itemData.image}
-                    store={itemData.store}
-                    timestamp={itemData.date}
-                    price={itemData.price}
-                />
+                <>
+                    <Slide
+                        category={itemData.category}
+                        minimal={true}
+                        likeCount={itemData.likeCount}
+                        id={itemData._id}
+                        name={itemData.title}
+                        imageSrc={itemData.image}
+                        store={itemData.store}
+                        timestamp={itemData.date}
+                        price={itemData.price}
+                        isSold={itemSold}
+                    />
+                    <div className="soldButtonCont">
+                        <button
+                            onClick={handleQRConfirm}
+                            className={`scanButton confirmSoldBtn${
+                                itemSold ? " scanButton--inactive" : ""
+                            }`}
+                        >
+                            Mark Item Sold
+                        </button>
+                        <button onClick={handleQRCancel} className="scanButton cancelSoldBtn">
+                            Cancel
+                        </button>
+                    </div>
+                </>
             )}
         </div>
     );

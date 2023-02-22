@@ -3,6 +3,7 @@ import axios from "axios";
 const TESTING = false;
 
 export type SlideData = {
+    category?: string;
     _id: unknown;
     title: string;
     store: string;
@@ -11,6 +12,7 @@ export type SlideData = {
     image: string;
     timeIndex: string;
     likeCount: number;
+    isSold: boolean;
 };
 
 interface CategoryData {
@@ -69,12 +71,25 @@ export const getClothingFromCategory = (
 export const getItemFromId = (category, id): Promise<SlideData> => {
     const data = {collection: category, clothingId: id};
 
-    console.log(data);
-
     return new Promise((resolve, reject) => {
         axios.get(`${getBaseURL()}/getItemFromId`, {params: data}).then((result) => {
             resolve(result.data.item);
         });
+    });
+};
+
+export const markItemSold = (collection, id) => {
+    const data = {collection: collection, clothingId: id};
+
+    return new Promise((resolve, reject) => {
+        axios
+            .post(`${getBaseURL()}/markItemSold`, data)
+            .then(function (response) {
+                resolve(response.data);
+            })
+            .catch(function (error) {
+                reject(error);
+            });
     });
 };
 

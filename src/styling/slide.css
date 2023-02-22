@@ -9,6 +9,20 @@
     background-color: rgb(252, 252, 252);
 }
 
+.slideCont--sold {
+    pointer-events: none;
+    background-color: rgb(217, 217, 217, 0.5);
+}
+
+.itemSoldText {
+    z-index: 1;
+    position: absolute;
+    color: white;
+    font-size: 80px;
+    font-weight: bold;
+    transform: rotate(-45deg); 
+}
+
 @media (min-width: 480px) {
     .slideCont {
         max-width: 300px;
@@ -18,6 +32,7 @@
 .slideImgCont {
     display: flex;
     justify-content: center;
+    align-items: center;
 }
 
 .slideImg {
@@ -26,6 +41,10 @@
     width: 80vw;
     height: 80vw;
     object-fit: cover;
+}
+
+.slideImg--sold {
+    opacity: 0.5;
 }
 
 @media (min-width: 480px) {

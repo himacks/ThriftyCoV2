@@ -14,6 +14,7 @@ export default function Slide({
     imageSrc,
     store,
     timestamp,
+    isSold,
     price,
     likeCount,
     id
@@ -36,9 +37,17 @@ export default function Slide({
 
     return (
         <>
-            <div className="slideCont" onClick={minimal ? undefined : handleClick}>
+            <div
+                className={`slideCont${isSold ? " slideCont--sold" : ""}`}
+                onClick={minimal ? undefined : handleClick}
+            >
                 <div className="slideImgCont">
-                    <img className="slideImg" alt="image" src={imageSrc} />
+                    <img
+                        className={`slideImg ${isSold ? "slideImg--sold" : ""}`}
+                        alt="image"
+                        src={imageSrc}
+                    />
+                    {isSold && <div className="itemSoldText">SOLD</div>}
                 </div>
                 <div className="slideInfoCont">
                     <div className="slideHeaderCont">

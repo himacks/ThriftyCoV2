@@ -20,6 +20,7 @@ export default function Category({id, clothingData, category, isActive}) {
                             store={slideData.store}
                             timestamp={slideData.date}
                             price={slideData.price}
+                            isSold={slideData.isSold}
                         />
                     );
                 })}
