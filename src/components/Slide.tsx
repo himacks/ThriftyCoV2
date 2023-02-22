@@ -5,22 +5,23 @@ import InfoPopup from "./InfoPopup";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import AlarmIcon from "@mui/icons-material/Alarm";
 
+import {SlideData} from "../helpers";
+
 import "../styling/slide.css";
 
 export default function Slide({
     category,
     minimal,
-    name,
-    imageSrc,
-    store,
-    timestamp,
-    isSold,
-    price,
-    likeCount,
-    id
+    stores,
+    slideData
+}: {
+    category: string;
+    minimal: boolean;
+    stores: unknown;
+    slideData: SlideData;
 }) {
     const [liked, setLiked] = useState(false);
-    const [likedCount, setLikedCount] = useState(likeCount);
+    const [likedCount, setLikedCount] = useState(slideData.likeCount);
     const [openPopup, setOpenPopup] = useState(false);
 
     const likeRef = useRef(null);
@@ -38,22 +39,22 @@ export default function Slide({
     return (
         <>
             <div
-                className={`slideCont${isSold ? " slideCont--sold" : ""}`}
+                className={`slideCont${slideData.isSold ? " slideCont--sold" : ""}`}
                 onClick={minimal ? undefined : handleClick}
             >
                 <div className="slideImgCont">
                     <img
-                        className={`slideImg ${isSold ? "slideImg--sold" : ""}`}
+                        className={`slideImg ${slideData.isSold ? "slideImg--sold" : ""}`}
                         alt="image"
-                        src={imageSrc}
+                        src={slideData.image}
                     />
-                    {isSold && <div className="itemSoldText">SOLD</div>}
+                    {slideData.isSold && <div className="itemSoldText">SOLD</div>}
                 </div>
                 <div className="slideInfoCont">
                     <div className="slideHeaderCont">
                         <div className="slideTitleCont">
-                            <span className="slideTitle">{name}</span>
-                            <span className="slidePrice">{price}</span>
+                            <span className="slideTitle">{slideData.title}</span>
+                            <span className="slidePrice">{slideData.price}</span>
                         </div>
                         {!minimal && (
                             <FavoriteItem
@@ -63,22 +64,22 @@ export default function Slide({
                                 setLiked={setLiked}
                                 likedCount={likedCount}
                                 setLikedCount={setLikedCount}
-                                id={id}
+                                id={slideData._id}
                             />
                         )}
                     </div>
                     <div className="slideStoreCont">
                         <LocationOnIcon />
-                        <span className="slideStore">{store}</span>
+                        <span className="slideStore">{slideData.store}</span>
                     </div>
                     <div className="slideTimeStampCont">
                         <AlarmIcon />
-                        <span className="slideTimeStamp">{timestamp}</span>
+                        <span className="slideTimeStamp">{slideData.timeIndex}</span>
                     </div>
                 </div>
             </div>
             {openPopup && (
-                <InfoPopup itemName={name} category={category} id={id} togglePopup={setOpenPopup} />
+                <InfoPopup slideData={slideData} category={category} togglePopup={setOpenPopup} />
             )}
         </>
     );

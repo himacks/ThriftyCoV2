@@ -18,6 +18,7 @@ export default function App() {
     useEffect(() => {
         getStores().then(({stores}) => {
             setConnectedStores(stores);
+            console.log(stores);
         });
         getCategories().then(({categories}) => {
             setCategories(categories);

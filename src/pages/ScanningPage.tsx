@@ -55,15 +55,9 @@ export default function ScanningPage() {
                 <>
                     <Slide
                         category={itemData.category}
+                        stores={undefined}
                         minimal={true}
-                        likeCount={itemData.likeCount}
-                        id={itemData._id}
-                        name={itemData.title}
-                        imageSrc={itemData.image}
-                        store={itemData.store}
-                        timestamp={itemData.date}
-                        price={itemData.price}
-                        isSold={itemSold}
+                        slideData={itemData}
                     />
                     <div className="soldButtonCont">
                         <button

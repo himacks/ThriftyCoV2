@@ -13,14 +13,7 @@ export default function Category({id, clothingData, category, isActive}) {
                             key={index}
                             minimal={false}
                             category={category}
-                            likeCount={slideData.likeCount}
-                            id={slideData._id}
-                            name={slideData.title}
-                            imageSrc={slideData.image}
-                            store={slideData.store}
-                            timestamp={slideData.date}
-                            price={slideData.price}
-                            isSold={slideData.isSold}
+                            slideData={slideData}
                         />
                     );
                 })}
