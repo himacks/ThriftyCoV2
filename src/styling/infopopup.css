@@ -20,6 +20,7 @@
     border-radius: 2rem;
     width: 100%;
     height: auto;
+    max-height: 90%;
 }
 
 .popupContBackground {
@@ -46,7 +47,6 @@
     display: flex;
     background-color: transparent;
     justify-content: flex-end;
-    margin-bottom: 0.5rem;
 }
 
 .popupHeaderCont {
