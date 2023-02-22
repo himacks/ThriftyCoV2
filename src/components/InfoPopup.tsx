@@ -1,5 +1,6 @@
 import React, {useRef, useEffect} from "react";
 import CloseIcon from "@mui/icons-material/Close";
+import LocationOnIcon from "@mui/icons-material/LocationOn";
 import QRCode from "qrcode";
 import {SlideData, StoreData} from "../helpers";
 import DirectionsIcon from "@mui/icons-material/Directions";
@@ -52,22 +53,30 @@ export default function InfoPopup({
                             <div className="popupTitle">{slideData.title}</div>
                             <div className="popupPrice">{slideData.price}</div>
                             <div className="popupLocationCont">
-                                <div className="popupStoreName">{slideData.store}</div>
+                                <div className="popupStoreCont">
+                                    <LocationOnIcon />
+                                    <div className="popupStoreName">{slideData.store}</div>
+                                </div>
+                                <div className="popupStoreAddy">{storeData.address}</div>
+
                                 <a
                                     href={`https://www.google.com/maps?saddr=Your+Location&daddr=${storeData.address.replace(
                                         " ",
                                         "+"
                                     )}`}
+                                    target="_blank"
+                                    rel="noreferrer"
                                     className="gMapsFwdBtn"
                                 >
-                                    <DirectionsIcon />
+                                    <DirectionsIcon className="popDirectionsIcon" />
                                     Get Directions
                                 </a>
                             </div>
                         </div>
                         <div className={"popupHelpCont"}>
                             <div className="popupHelpText">
-                                Show this QR Code to the cashier for a discount!
+                                {/* Show this QR Code to the cashier for a discount! */}
+                                In the future, this QR code may be used for discounts.
                             </div>
                         </div>
                         <div className="qrCodeCont">

@@ -79,8 +79,17 @@
 }
 
 .submitMsgCont {
+    position: absolute;
+    width: calc(100% - 4rem);
+    top: 40%;
+    z-index: 2;
     display: flex;
     justify-content: center;
+}
+
+.submitMsgCloseBtn {
+    position: absolute;
+    bottom: 55%;
 }
 
 .submitMsgText {

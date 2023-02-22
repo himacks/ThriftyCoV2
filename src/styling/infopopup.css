@@ -85,16 +85,29 @@
     padding: 0 10px;
     border-radius: 1rem;
     text-decoration: none;
-    border: 1px solid black;
+    background-color: #030303;
+    color: #ffffff;
+    box-shadow: 0px 2px 40px #00000020, 0px 2px 5px #00000030;
+    padding: 10px;
 }
 
-.gMapsFwdBtn > * {
-    margin: 10px;
+.popDirectionsIcon {
+    margin-right: 10px;
+}
+
+
+.popupStoreCont {
+    display: flex;
 }
 
 .popupStoreName {
     font-size: 20px;
+}
+
+.popupStoreAddy {
     margin: 1rem 0;
+    padding: 0 5rem;
+    text-align: center;
 }
 
 .popupImgCont {

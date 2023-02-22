@@ -1,7 +1,8 @@
-import React, {useState, useEffect, useRef, useMemo} from "react";
+import React, {useState, useRef} from "react";
 import {postClothingItem} from "../helpers";
-import {getCategories, getStores, StoreType, CategoryType} from "../helpers";
+import {StoreType, CategoryType} from "../helpers";
 import CircularProgress from "@mui/material/CircularProgress";
+import CancelIcon from "@mui/icons-material/Cancel";
 import TextField from "@mui/material/TextField";
 import Autocomplete, {createFilterOptions} from "@mui/material/Autocomplete";
 
@@ -278,7 +279,7 @@ export default function PostingPage({categories, connectedStores}: PostingPagePr
                         <div className="loadingText">Uploading Item...</div>
                     </div>
                 ) : postSubmitMsg ? (
-                    <div className={`submitMsgCont`}>
+                    <div className={`submitMsgCont`} onClick={() => setPostSubmitMsg(undefined)}>
                         <div
                             className={`submitMsgText${
                                 postSubmitMsg.success
@@ -287,6 +288,7 @@ export default function PostingPage({categories, connectedStores}: PostingPagePr
                             }`}
                         >
                             {postSubmitMsg.value}
+                            <CancelIcon className="submitMsgCloseBtn" />
                         </div>
                     </div>
                 ) : undefined}
