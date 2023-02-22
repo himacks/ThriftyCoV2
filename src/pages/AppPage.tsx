@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 
 import Slider from "../components/Slider";
 
-export default function AppPage({setClothing, categories, clothing}) {
+export default function AppPage({setClothing, categories, connectedStores, clothing}) {
     const categoryList = categories
         ? categories.map((categoryObj) => categoryObj.category)
         : undefined;
@@ -11,10 +11,11 @@ export default function AppPage({setClothing, categories, clothing}) {
         <>
             <div className="bgCont" />
             <div className="appCont">
-                {categories && clothing && (
+                {categories && clothing && connectedStores && (
                     <Slider
                         setClothing={setClothing}
                         categories={categoryList}
+                        stores={connectedStores}
                         clothing={clothing}
                     />
                 )}

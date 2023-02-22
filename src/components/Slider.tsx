@@ -6,7 +6,7 @@ import {getClothingFromCategory} from "../helpers";
 
 import "../styling/slider.css";
 
-export default function Slider({setClothing, categories, clothing}) {
+export default function Slider({setClothing, categories, stores, clothing}) {
     const [activeSlide, setActiveSlide] = useState(categories[0]);
 
     useEffect(() => {
@@ -49,6 +49,7 @@ export default function Slider({setClothing, categories, clothing}) {
                         <Category
                             key={index}
                             id={index}
+                            stores={stores}
                             category={category}
                             clothingData={clothing[category]}
                             isActive={activeSlide === category}

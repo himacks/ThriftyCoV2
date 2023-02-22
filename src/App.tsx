@@ -46,6 +46,7 @@ export default function App() {
                                 setClothing={setClothing}
                                 categories={categories}
                                 clothing={clothing}
+                                connectedStores={connectedStores}
                             />
                         }
                     />

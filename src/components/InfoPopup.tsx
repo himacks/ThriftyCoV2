@@ -50,7 +50,10 @@ export default function InfoPopup({
                         <div className="popupPrice">{slideData.price}</div>
                         <div className="popupLocationCont">
                             <div className="popupStoreName">{slideData.store}</div>
-                            <a className="gMapsFwdBtn">
+                            <a
+                                href={`https://www.google.com/maps?saddr=My+Location&daddr=${slideData}`}
+                                className="gMapsFwdBtn"
+                            >
                                 <DirectionsIcon />
                                 Get Directions
                             </a>
