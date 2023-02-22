@@ -23,6 +23,7 @@ export default function ScanningPage() {
                 <QrReader
                     delay={2000}
                     className="qrReader"
+                    facingMode="front"
                     onError={handleError}
                     onScan={handleScan}
                 />
