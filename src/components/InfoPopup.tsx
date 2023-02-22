@@ -53,7 +53,7 @@ export default function InfoPopup({
                         <div className="popupLocationCont">
                             <div className="popupStoreName">{slideData.store}</div>
                             <a
-                                href={`https://www.google.com/maps?saddr=My+Location&daddr=${storeData.address.replace(
+                                href={`https://www.google.com/maps?saddr=Your+Location&daddr=${storeData.address.replace(
                                     " ",
                                     "+"
                                 )}`}
