@@ -22,11 +22,27 @@
     margin: 2rem 0;
 }
 
-.inputCont {
-    padding: 1rem 2rem;
+.priceLabelHelp {
     width: calc(100% - 2rem);
+    padding: 0rem 2rem;
+}
+
+.inputCont {
+    padding: 1rem calc(2rem + 10px);
+    width: calc(100% - 2rem + 20px);
     display: flex;
     align-items: center;
+}
+
+.priceCont {
+    padding: 1rem calc(2rem + 10px) 0.5rem calc(2rem + 10px);
+}
+
+.priceLabelHelp {
+    font-style: italic;
+    color: #adadad;
+    margin-bottom: 1rem;
+    font-size: 14px;
 }
 
 .inputCont > * {

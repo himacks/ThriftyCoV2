@@ -45,6 +45,10 @@ export default function PostingPage({categories, connectedStores}: PostingPagePr
             } else {
                 value = "";
             }
+        } else if (parameter === "price") {
+            if (isNaN(value)) {
+                value = formData.price.value;
+            }
         }
 
         setFormData({...formData, ...{[parameter]: {value: value, error: false}}});
@@ -71,7 +75,7 @@ export default function PostingPage({categories, connectedStores}: PostingPagePr
         if (validateForm()) {
             const formFileData = new FormData();
             formFileData.append("title", formData.title.value);
-            formFileData.append("price", formData.price.value);
+            formFileData.append("price", "$" + formData.price.value);
             formFileData.append("store", formData.store.value);
             formFileData.append("category", formData.category.value);
             formFileData.append(
@@ -131,6 +135,7 @@ export default function PostingPage({categories, connectedStores}: PostingPagePr
                                 }}
                             ></input>
                         </div>
+                        <div className="priceLabelHelp">{`(Only the number eg. 22.00)`}</div>
                         <div className="inputCont categoriesCont">
                             <Autocomplete
                                 value={formData.category.value}
