@@ -35,7 +35,7 @@ export default function InfoPopup({itemName, category, id, togglePopup}) {
                     <div className="popupTitle">{itemName}</div>
                 </div>
                 <div className="qrCodeCont">
-                    <canvas ref={canvasRef} />
+                    <canvas className="qrCodeDisplay" ref={canvasRef} />
                 </div>
             </div>
         </div>

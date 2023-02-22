@@ -42,7 +42,8 @@ export default function ScanningPage() {
                         constraints={{
                             facingMode: "environment"
                         }}
-                        onResult={(result, error) => {
+                        scanDelay={1000}
+                        onResult={(result) => {
                             if (result) {
                                 handleQRFind(JSON.parse(result.getText()));
                             }

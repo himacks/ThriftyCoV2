@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const TESTING = false;
+const TESTING = !process.env.PRODUCTION;
 
 export type SlideData = {
     category?: string;
