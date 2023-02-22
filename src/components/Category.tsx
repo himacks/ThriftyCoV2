@@ -11,6 +11,7 @@ export default function Category({id, clothingData, category, isActive}) {
                     return (
                         <Slide
                             key={index}
+                            minimal={false}
                             category={category}
                             likeCount={slideData.likeCount}
                             id={slideData._id}

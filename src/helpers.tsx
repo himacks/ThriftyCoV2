@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const TESTING = false;
+const TESTING = true;
 
 export type SlideData = {
     _id: unknown;
@@ -10,6 +10,7 @@ export type SlideData = {
     price: string;
     image: string;
     timeIndex: string;
+    likeCount: number;
 };
 
 interface CategoryData {
@@ -65,8 +66,16 @@ export const getClothingFromCategory = (
     });
 };
 
-export const getItemFromId = () => {
-    1 + 1;
+export const getItemFromId = (category, id): Promise<SlideData> => {
+    const data = {collection: category, clothingId: id};
+
+    console.log(data);
+
+    return new Promise((resolve, reject) => {
+        axios.get(`${getBaseURL()}/getItemFromId`, {params: data}).then((result) => {
+            resolve(result.data.item);
+        });
+    });
 };
 
 export const updateItemLikes = (collection, id, increase: boolean) => {
