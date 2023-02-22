@@ -8,11 +8,13 @@ export default function Category({id, clothingData, category, stores, isActive})
         <div key={id} className={`categoryCont${isActive ? " categoryCont--active" : ""}`}>
             {clothingData &&
                 clothingData.map((slideData, index) => {
+                    const storeObj = stores.find((store) => store.store === slideData.store);
+
                     return (
                         <Slide
                             key={index}
                             minimal={false}
-                            stores={stores}
+                            storeData={storeObj}
                             category={category}
                             slideData={slideData}
                         />

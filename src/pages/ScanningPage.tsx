@@ -55,7 +55,7 @@ export default function ScanningPage() {
                 <>
                     <Slide
                         category={itemData.category}
-                        stores={undefined}
+                        storeData={undefined}
                         minimal={true}
                         slideData={itemData}
                     />

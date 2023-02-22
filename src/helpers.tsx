@@ -15,6 +15,13 @@ export type SlideData = {
     isSold: boolean;
 };
 
+export type StoreData = {
+    _id: unknown;
+    store: string;
+    address: string;
+    location: {lat: number; lng: number};
+};
+
 interface CategoryData {
     [name: string]: SlideData[];
 }

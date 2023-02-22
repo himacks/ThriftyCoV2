@@ -1,7 +1,7 @@
 import React, {useRef, useEffect} from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import QRCode from "qrcode";
-import {SlideData} from "../helpers";
+import {SlideData, StoreData} from "../helpers";
 import DirectionsIcon from "@mui/icons-material/Directions";
 
 import "../styling/infopopup.css";
@@ -9,10 +9,12 @@ import "../styling/infopopup.css";
 export default function InfoPopup({
     slideData,
     category,
+    storeData,
     togglePopup
 }: {
     slideData: SlideData;
     category: string;
+    storeData: StoreData;
     togglePopup: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
     const bgRef = useRef(null);
@@ -51,7 +53,10 @@ export default function InfoPopup({
                         <div className="popupLocationCont">
                             <div className="popupStoreName">{slideData.store}</div>
                             <a
-                                href={`https://www.google.com/maps?saddr=My+Location&daddr=${slideData}`}
+                                href={`https://www.google.com/maps?saddr=My+Location&daddr=${storeData.address.replace(
+                                    " ",
+                                    "+"
+                                )}`}
                                 className="gMapsFwdBtn"
                             >
                                 <DirectionsIcon />

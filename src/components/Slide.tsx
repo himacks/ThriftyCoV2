@@ -5,19 +5,19 @@ import InfoPopup from "./InfoPopup";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import AlarmIcon from "@mui/icons-material/Alarm";
 
-import {SlideData} from "../helpers";
+import {SlideData, StoreData} from "../helpers";
 
 import "../styling/slide.css";
 
 export default function Slide({
     category,
     minimal,
-    stores,
+    storeData,
     slideData
 }: {
     category: string;
     minimal: boolean;
-    stores: unknown;
+    storeData: StoreData;
     slideData: SlideData;
 }) {
     const [liked, setLiked] = useState(false);
@@ -74,12 +74,17 @@ export default function Slide({
                     </div>
                     <div className="slideTimeStampCont">
                         <AlarmIcon />
-                        <span className="slideTimeStamp">{slideData.timeIndex}</span>
+                        <span className="slideTimeStamp">{slideData.date}</span>
                     </div>
                 </div>
             </div>
             {openPopup && (
-                <InfoPopup slideData={slideData} category={category} togglePopup={setOpenPopup} />
+                <InfoPopup
+                    slideData={slideData}
+                    storeData={storeData}
+                    category={category}
+                    togglePopup={setOpenPopup}
+                />
             )}
         </>
     );

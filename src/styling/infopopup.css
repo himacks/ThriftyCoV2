@@ -7,6 +7,7 @@
     width: 100%;
     top: 0;
     bottom: 0;
+    z-index: 2;
     background: rgba(5, 5, 5, 0.5);
 }
 
@@ -57,9 +58,11 @@
     font-size: 24px;
     font-weight: 400;
     text-align: center;
+    margin: 0 1rem;
 }
 
 .popupPrice {
+    margin: 1rem 0;
     font-size: 20px;
     font-weight: 600;
 }
@@ -78,6 +81,7 @@
     color: black;
     padding: 0 10px;
     border-radius: 1rem;
+    text-decoration: none;
     border: 1px solid black;
 }
 
@@ -87,6 +91,7 @@
 
 .popupStoreName {
     font-size: 20px;
+    margin: 1rem 0;
 }
 
 .popupImgCont {
