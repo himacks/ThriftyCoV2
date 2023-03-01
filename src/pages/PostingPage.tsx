@@ -171,7 +171,7 @@ export default function PostingPage({categories, connectedStores}: PostingPagePr
                                 clearOnBlur
                                 handleHomeEndKeys
                                 id="category-selection-menu"
-                                options={categories}
+                                options={categories.slice(0, -1)}
                                 getOptionLabel={(option) => {
                                     // Value selected with enter, right from the input
                                     if (typeof option === "string") {

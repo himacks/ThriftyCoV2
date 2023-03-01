@@ -20,9 +20,11 @@ export default function App() {
             setConnectedStores(stores);
         });
         getCategories().then(({categories}) => {
-            setCategories(categories);
+            const adjCategories = categories.concat({category: "SearchQuery"});
 
-            const retrievedCategories = categories.map((categoryObj) => categoryObj.category);
+            setCategories(adjCategories);
+
+            const retrievedCategories = adjCategories.map((categoryObj) => categoryObj.category);
 
             const initialCategory = retrievedCategories[0];
 

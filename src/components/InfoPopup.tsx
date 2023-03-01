@@ -54,7 +54,7 @@ export default function InfoPopup({
                             <div className="popupPrice">{slideData.price}</div>
                             <div className="popupLocationCont">
                                 <div className="popupStoreCont">
-                                    <LocationOnIcon />
+                                    <LocationOnIcon className="locationIcon" />
                                     <div className="popupStoreName">{slideData.store}</div>
                                 </div>
                                 <div className="popupStoreAddy">{storeData.address}</div>

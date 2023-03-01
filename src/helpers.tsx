@@ -115,6 +115,16 @@ export const updateItemLikes = (collection, id, increase: boolean) => {
     });
 };
 
+export const getClothingFromSearch = (query) => {
+    const data = {searchQuery: query};
+
+    return new Promise((resolve, reject) => {
+        axios.get(`${getBaseURL()}/getItemsFromSearch`, {params: data}).then((result) => {
+            resolve(result.data.items);
+        });
+    });
+};
+
 export const postClothingItem = (fileFormData) => {
     return new Promise((resolve, reject) => {
         axios
