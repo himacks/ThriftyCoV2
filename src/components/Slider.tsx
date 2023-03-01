@@ -12,19 +12,17 @@ export default function Slider({setClothing, categories, stores, clothing}) {
     const [activeSlide, setActiveSlide] = useState(categories[0]);
     const [searchValue, setSearchValue] = useState("");
 
-    const mostRecentSlide = useRef(categories[0]);
+    const queriedSearchVal = useRef("");
 
     function onKeyDownHandler(event) {
         if (event.keyCode === 13 && searchValue) {
             getClothingFromSearch(searchValue).then((foundItems) => {
                 setClothing((clothing) => {
                     setActiveSlide("SearchQuery");
+                    queriedSearchVal.current = searchValue;
                     return {...clothing, ...{SearchQuery: foundItems}};
                 });
             });
-        } else if (!event.currentTarget.value && activeSlide !== mostRecentSlide.current) {
-            setSearchValue(event.currentTarget.value);
-            setActiveSlide(mostRecentSlide.current);
         } else {
             setSearchValue(event.currentTarget.value);
         }
@@ -67,7 +65,6 @@ export default function Slider({setClothing, categories, stores, clothing}) {
                                         activeSlide === category ? " categoryButton--active" : ""
                                     }`}
                                     onClick={() => {
-                                        mostRecentSlide.current = category;
                                         setActiveSlide(category);
                                     }}
                                     key={index}
@@ -80,7 +77,9 @@ export default function Slider({setClothing, categories, stores, clothing}) {
                 </div>
                 <div className="categoryTitleCont">
                     <div className="categoryTitle">
-                        {activeSlide === "SearchQuery" ? "Search Results" : activeSlide}
+                        {activeSlide === "SearchQuery"
+                            ? `Results for "${queriedSearchVal.current}"`
+                            : activeSlide}
                     </div>
                 </div>
             </div>
