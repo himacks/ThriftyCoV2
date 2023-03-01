@@ -28,7 +28,7 @@ export default function App() {
 
             const initialCategory = retrievedCategories[0];
 
-            getClothingFromCategory(initialCategory, 5).then((result) => {
+            getClothingFromCategory(initialCategory, 10).then((result) => {
                 setClothing((clothing) => {
                     return {...clothing, ...{[initialCategory]: result.items}};
                 });
