@@ -4,7 +4,7 @@ const TESTING = !process.env.PRODUCTION;
 
 export type SlideData = {
     category?: string;
-    _id: unknown;
+    _id: string;
     title: string;
     store: string;
     date: string;
@@ -13,6 +13,7 @@ export type SlideData = {
     timeIndex: string;
     likeCount: number;
     isSold: boolean;
+    missingCount: number;
 };
 
 export type StoreData = {
@@ -91,6 +92,21 @@ export const markItemSold = (collection, id) => {
     return new Promise((resolve, reject) => {
         axios
             .post(`${getBaseURL()}/markItemSold`, data)
+            .then(function (response) {
+                resolve(response.data);
+            })
+            .catch(function (error) {
+                reject(error);
+            });
+    });
+};
+
+export const updateMissingCount = (collection, id, increase: boolean) => {
+    const data = {collection: collection, clothingId: id, increase: increase};
+
+    return new Promise((resolve, reject) => {
+        axios
+            .post(`${getBaseURL()}/updateMissingCount`, data)
             .then(function (response) {
                 resolve(response.data);
             })

@@ -1,9 +1,10 @@
-import React, {useRef, useEffect} from "react";
+import React, {useRef, useEffect, useState} from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import QRCode from "qrcode";
-import {SlideData, StoreData} from "../helpers";
+import {SlideData, StoreData, updateMissingCount} from "../helpers";
 import DirectionsIcon from "@mui/icons-material/Directions";
+import {Cookie} from "universal-cookie";
 
 import "../styling/infopopup.css";
 
@@ -11,18 +12,46 @@ export default function InfoPopup({
     slideData,
     category,
     storeData,
-    togglePopup
+    missingCount,
+    setMissingCount,
+    togglePopup,
+    flaggedMissingItems,
+    cookies
 }: {
     slideData: SlideData;
     category: string;
     storeData: StoreData;
+    missingCount: number;
+    setMissingCount: React.Dispatch<React.SetStateAction<number>>;
     togglePopup: React.Dispatch<React.SetStateAction<boolean>>;
+    flaggedMissingItems: React.RefObject<string[]>;
+    cookies: Cookie;
 }) {
     const bgRef = useRef(null);
     const canvasRef = useRef();
+    const [missing, setMissing] = useState(
+        flaggedMissingItems.current.includes(slideData._id) || false
+    );
 
-    const handleClick = (event) => {
+    const handleBgClick = (event) => {
         event.target === bgRef.current && togglePopup(false);
+    };
+
+    const handleMissingClick = () => {
+        setMissingCount(!missing ? missingCount + 1 : missingCount - 1);
+        setMissing(!missing);
+        !missing
+            ? flaggedMissingItems.current.push(slideData._id)
+            : flaggedMissingItems.current.splice(
+                  flaggedMissingItems.current.indexOf(slideData._id),
+                  1
+              );
+
+        cookies.set("flaggedMissingItems", JSON.stringify(flaggedMissingItems.current), {
+            path: "/"
+        });
+
+        updateMissingCount(category, slideData._id, !missing);
     };
 
     useEffect(() => {
@@ -30,7 +59,7 @@ export default function InfoPopup({
     }, [category, slideData._id]);
 
     return (
-        <div ref={bgRef} onClick={handleClick} className="popupBackground">
+        <div ref={bgRef} onClick={handleBgClick} className="popupBackground">
             <div className="popupContBackground">
                 <div className="closePopUpCont">
                     <CloseIcon
@@ -52,6 +81,17 @@ export default function InfoPopup({
                     store address, etc. */}
                             <div className="popupTitle">{slideData.title}</div>
                             <div className="popupPrice">{slideData.price}</div>
+                            <div
+                                className={`popupMissingButton${
+                                    missing ? " popupMissingButton--clicked" : ""
+                                }`}
+                                onClick={handleMissingClick}
+                            >
+                                Report Missing
+                            </div>
+                            <div className={"popupMissingCount"}>
+                                {`${missingCount} Thrifter(s) flagged as missing.`}
+                            </div>
                             <div className="popupLocationCont">
                                 <div className="popupStoreCont">
                                     <LocationOnIcon className="locationIcon" />

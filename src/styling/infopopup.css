@@ -54,7 +54,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin: 0 1rem 2rem 1rem; 
+    margin: 0 1rem 2rem 1rem;
 }
 
 .popupTitle {
@@ -69,10 +69,29 @@
     width: 100%;
 }
 
+.popupMissingButton {
+    margin-top: 2rem;
+    background-color: rgb(239, 64, 64);
+    color: #ffffff;
+    border-radius: 1rem;
+    padding: 1rem;
+    border: 3px solid transparent;
+    box-shadow: 0px 2px 40px #00000020, 0px 2px 5px #00000030;
+}
+
+.popupMissingButton--clicked {
+    background-color: rgb(243, 138, 138);
+    border: 3px solid rgb(210, 207, 207);
+}
+
+.popupMissingCount {
+    padding: 1rem;
+    font-style:oblique;
+}
+
 .popupLocationCont {
     margin: 2rem 0;
     padding: 1rem 3rem;
-    box-shadow: 0px 2px 40px #00000020, 0px 2px 5px #00000030;
     border-radius: 2rem;
     display: flex;
     justify-content: center;
@@ -99,7 +118,6 @@
 .popDirectionsIcon {
     margin-right: 10px;
 }
-
 
 .popupStoreCont {
     display: flex;
@@ -128,8 +146,6 @@
     align-items: center;
 }
 
-
-
 .qrCodeCont {
     display: flex;
     justify-content: center;
@@ -143,7 +159,6 @@
 }
 
 @media (max-width: 480px) {
-
     .popupCont {
         flex-direction: column;
         overflow-y: scroll;
@@ -155,13 +170,16 @@
     }
 }
 
-
-
-
 @media (min-width: 480px) {
     .popupContBackground {
         width: min-content;
         height: 80%;
+    }
+
+    .popupMissingButton:hover {
+        cursor: pointer;
+        background-color: rgb(243, 138, 138);
+        border: 3px solid rgb(239, 234, 234);
     }
 
     .popupHeaderCont {
@@ -176,10 +194,6 @@
         overflow-y: scroll;
     }
 
-    .popupLocationCont {
-        margin: 0;
-    }
-    
     .popupImg {
         width: 30vw;
     }

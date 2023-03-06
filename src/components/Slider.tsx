@@ -8,7 +8,14 @@ import {getClothingFromCategory, getClothingFromSearch} from "../helpers";
 
 import "../styling/slider.css";
 
-export default function Slider({setClothing, categories, stores, clothing}) {
+export default function Slider({
+    setClothing,
+    likedItems,
+    flaggedMissingItems,
+    categories,
+    stores,
+    clothing
+}) {
     const [activeSlide, setActiveSlide] = useState(categories[0]);
     const [searchValue, setSearchValue] = useState("");
 
@@ -90,6 +97,8 @@ export default function Slider({setClothing, categories, stores, clothing}) {
                             key={index}
                             id={index}
                             stores={stores}
+                            likedItems={likedItems}
+                            flaggedMissingItems={flaggedMissingItems}
                             category={category}
                             clothingData={clothing[category]}
                             isActive={activeSlide === category}

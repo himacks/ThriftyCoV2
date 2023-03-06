@@ -4,8 +4,11 @@ import FavoriteItem from "./FavoriteItem";
 import InfoPopup from "./InfoPopup";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import AlarmIcon from "@mui/icons-material/Alarm";
+import Cookies from "universal-cookie";
 
-import {SlideData, StoreData} from "../helpers";
+const cookies = new Cookies();
+
+import {SlideData, StoreData, updateItemLikes} from "../helpers";
 
 import "../styling/slide.css";
 
@@ -13,15 +16,22 @@ export default function Slide({
     category,
     minimal,
     storeData,
-    slideData
+    slideData,
+    likedItems,
+    flaggedMissingItems
 }: {
     category: string;
     minimal: boolean;
     storeData: StoreData;
     slideData: SlideData;
+    likedItems?: React.RefObject<string[]>;
+    flaggedMissingItems?: React.RefObject<string[]>;
 }) {
-    const [liked, setLiked] = useState(false);
+    const [liked, setLiked] = useState(
+        likedItems ? likedItems.current.includes(slideData._id) : false
+    );
     const [likedCount, setLikedCount] = useState(slideData.likeCount);
+    const [missingCount, setMissingCount] = useState(slideData.missingCount);
     const [openPopup, setOpenPopup] = useState(false);
 
     const likeRef = useRef(null);
@@ -36,10 +46,24 @@ export default function Slide({
         }
     };
 
+    const handleLike = () => {
+        setLikedCount(!liked ? likedCount + 1 : likedCount - 1);
+        setLiked(!liked);
+        !liked
+            ? likedItems.current.push(slideData._id)
+            : likedItems.current.splice(likedItems.current.indexOf(slideData._id), 1);
+
+        cookies.set("likedItems", JSON.stringify(likedItems.current), {path: "/"});
+
+        updateItemLikes(category, slideData._id, !liked);
+    };
+
     return (
         <>
             <div
-                className={`slideCont${slideData.isSold ? " slideCont--sold" : ""}`}
+                className={`slideCont${slideData.isSold ? " slideCont--sold" : ""}${
+                    missingCount > 2 ? " slideCont--missing" : ""
+                }`}
                 onClick={minimal ? undefined : handleClick}
             >
                 <div className="slideImgCont">
@@ -49,6 +73,7 @@ export default function Slide({
                         src={slideData.image}
                     />
                     {slideData.isSold && <div className="itemSoldText">SOLD</div>}
+                    {missingCount > 2 && <div className="itemMissingText">!</div>}
                 </div>
                 <div className="slideInfoCont">
                     <div className="slideHeaderCont">
@@ -59,12 +84,9 @@ export default function Slide({
                         {!minimal && (
                             <FavoriteItem
                                 objRef={likeRef}
-                                category={category}
                                 liked={liked}
-                                setLiked={setLiked}
+                                handleLike={handleLike}
                                 likedCount={likedCount}
-                                setLikedCount={setLikedCount}
-                                id={slideData._id}
                             />
                         )}
                     </div>
@@ -83,7 +105,11 @@ export default function Slide({
                     slideData={slideData}
                     storeData={storeData}
                     category={category}
+                    missingCount={missingCount}
+                    setMissingCount={setMissingCount}
+                    flaggedMissingItems={flaggedMissingItems}
                     togglePopup={setOpenPopup}
+                    cookies={cookies}
                 />
             )}
         </>
