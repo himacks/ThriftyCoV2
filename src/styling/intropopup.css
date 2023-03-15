@@ -1,0 +1,54 @@
+
+.introBgCont {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #a08968;
+    z-index: 4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+}
+
+.contentCont {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: #ebf4d9;
+}
+
+.contentCont > * {
+    margin: 1rem 0;
+}
+
+.thriftyHeader {
+    font-size: 72px;
+    font-family: "aAbstractGroovy";
+}
+
+.enterPageBtn {
+    font-size: 52px;
+    padding: 0.5rem 6rem;
+    border-radius: 50%;
+    background-color: #ebf4d9;
+    color: #a08968;
+    border: none;
+    box-shadow: 0px 2px 20px #00000020, 0px 2px 3px #00000030;
+    font-family: "kageRetro";
+}
+
+.enterPageBtn:hover {
+    background-color: #d2cfb7;
+
+}
+
+.thriftyDesc {
+    font-size: 32px;
+    text-align: center;
+    font-family: "kageRetro";
+    max-width: 400px;
+}

@@ -27,3 +27,17 @@ body {
     background-image: url("https://d17vv5kmac4tms.cloudfront.net/bgImage2.png");
     background-size: contain;
 }
+
+@font-face {
+    font-family: "aAbstractGroovy";
+    src: url(../fonts/aAbstractGroovy.otf) format("opentype");
+    /* other formats include: 'woff2', 'truetype, 'opentype',
+                              'embedded-opentype', and 'svg' */
+}
+
+@font-face {
+    font-family: "kageRetro";
+    src: url(../fonts/kageRetro.otf) format("opentype");
+    /* other formats include: 'woff2', 'truetype, 'opentype',
+                              'embedded-opentype', and 'svg' */
+}

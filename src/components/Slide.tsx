@@ -8,7 +8,7 @@ import Cookies from "universal-cookie";
 
 const cookies = new Cookies();
 
-import {SlideData, StoreData, updateItemLikes} from "../helpers";
+import {SlideData, StoreData, updateItemLikes, TrackGAEvent} from "../helpers";
 
 import "../styling/slide.css";
 
@@ -40,18 +40,23 @@ export default function Slide({
         if (event.target.className.includes) {
             if (!event.target.className.includes("favIconArea")) {
                 setOpenPopup(true);
+                TrackGAEvent(category, "cardClick", slideData.title);
             }
         } else if (event.target.tagName !== "path") {
             setOpenPopup(true);
+            TrackGAEvent(slideData.title, "cardClick", slideData._id);
         }
     };
 
     const handleLike = () => {
         setLikedCount(!liked ? likedCount + 1 : likedCount - 1);
         setLiked(!liked);
-        !liked
-            ? likedItems.current.push(slideData._id)
-            : likedItems.current.splice(likedItems.current.indexOf(slideData._id), 1);
+        if (!liked) {
+            likedItems.current.push(slideData._id);
+            TrackGAEvent(slideData.store, "cardLiked", slideData.title);
+        } else {
+            likedItems.current.splice(likedItems.current.indexOf(slideData._id), 1);
+        }
 
         cookies.set("likedItems", JSON.stringify(likedItems.current), {path: "/"});
 

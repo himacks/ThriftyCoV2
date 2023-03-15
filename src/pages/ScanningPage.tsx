@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from "react";
 import {QrReader} from "react-qr-reader";
 
-import {getItemFromId, SlideData, markItemSold} from "../helpers";
+import {getItemFromId, SlideData, markItemSold, TrackGAPageview, TrackGAEvent} from "../helpers";
 import Slide from "../components/Slide";
 
 import "../styling/scanningpage.css";
@@ -14,11 +14,17 @@ export default function ScanningPage() {
         markItemSold(itemData.category, itemData._id).then(() => {
             setItemSold(true);
 
+            TrackGAEvent(itemData.category, "qrCodeScan", itemData.title);
+
             setTimeout(() => {
                 setItemData(undefined);
             }, 3000);
         });
     };
+
+    useEffect(() => {
+        TrackGAPageview(window.location.pathname, "Scanning Page Visit");
+    }, []);
 
     const handleQRCancel = () => {
         setItemData(undefined);

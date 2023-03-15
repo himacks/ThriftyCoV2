@@ -22,7 +22,7 @@ const webpackConfig = (env): Configuration => ({
     output: {
         path: path.join(__dirname, "/dist"),
         filename: "build.js",
-        publicPath: '/'
+        publicPath: "/"
     },
     module: {
         rules: [
@@ -35,11 +35,12 @@ const webpackConfig = (env): Configuration => ({
                 exclude: /dist/
             },
             {test: /\.css$/, use: ["style-loader", "css-loader"]},
+            {test: /\.(png|woff|woff2|eot|ttf|svg)$/, use: ["url-loader?limit=100000"]}
         ]
     },
     devServer: {
-        historyApiFallback: true,
-      },
+        historyApiFallback: true
+    },
     plugins: [
         new HtmlWebpackPlugin({
             template: "./public/index.html",

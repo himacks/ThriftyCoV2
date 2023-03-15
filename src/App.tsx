@@ -5,22 +5,28 @@ import AppPage from "./pages/AppPage";
 import FAQPage from "./pages/FAQPage";
 import PostingPage from "./pages/PostingPage";
 import ScanningPage from "./pages/ScanningPage";
+import IntroPopup from "./components/IntroPopup";
 import Cookies from "universal-cookie";
 
-import {getCategories, getStores, getClothingFromCategory, StoreType} from "./helpers";
+import {getCategories, getStores, getClothingFromCategory, StoreType, initGA} from "./helpers";
 
 import "./styling/app.css";
+
+import "./fonts/aAbstractGroovy.ttf";
 
 const cookies = new Cookies();
 
 export default function App() {
     const [categories, setCategories] = useState(undefined);
     const [clothing, setClothing] = useState(undefined);
+    const [showPopup, setShowPopup] = useState(false);
     const [connectedStores, setConnectedStores] = useState<StoreType[]>(undefined);
     const likedItems = useRef([]);
     const flaggedMissingItems = useRef([]);
 
     useEffect(() => {
+        initGA();
+
         getStores().then(({stores}) => {
             setConnectedStores(stores);
         });
@@ -50,6 +56,10 @@ export default function App() {
             flaggedMissingItems.current = cookies.get("flaggedMissingItems");
         } else {
             cookies.set("flaggedMissingItems", "[]", {path: "/"});
+        }
+
+        if (!cookies.get("loadedBefore")) {
+            setShowPopup(true);
         }
     }, []);
 
@@ -83,6 +93,7 @@ export default function App() {
                     />
                 </Routes>
             </Router>
+            {showPopup && <IntroPopup cookies={cookies} setShow={setShowPopup} />}
         </>
     );
 }

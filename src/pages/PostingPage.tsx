@@ -1,6 +1,6 @@
-import React, {useState, useRef} from "react";
+import React, {useState, useRef, useEffect} from "react";
 import {postClothingItem} from "../helpers";
-import {StoreType, CategoryType} from "../helpers";
+import {StoreType, CategoryType, TrackGAPageview} from "../helpers";
 import CircularProgress from "@mui/material/CircularProgress";
 import CancelIcon from "@mui/icons-material/Cancel";
 import TextField from "@mui/material/TextField";
@@ -14,6 +14,10 @@ type PostingPageProps = {
 };
 
 export default function PostingPage({categories, connectedStores}: PostingPageProps) {
+    useEffect(() => {
+        TrackGAPageview(window.location.pathname, "Posting Page Visit");
+    }, []);
+
     const emptyForm = {
         title: {value: "", error: false},
         store: {value: "", error: false},

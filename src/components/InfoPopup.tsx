@@ -2,7 +2,7 @@ import React, {useRef, useEffect, useState} from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import QRCode from "qrcode";
-import {SlideData, StoreData, updateMissingCount} from "../helpers";
+import {SlideData, StoreData, updateMissingCount, TrackGAEvent} from "../helpers";
 import DirectionsIcon from "@mui/icons-material/Directions";
 import {Cookie} from "universal-cookie";
 
@@ -37,15 +37,22 @@ export default function InfoPopup({
         event.target === bgRef.current && togglePopup(false);
     };
 
+    const handleDirClick = () => {
+        TrackGAEvent(slideData.store, "getDirectionsClick", slideData.title);
+    };
+
     const handleMissingClick = () => {
         setMissingCount(!missing ? missingCount + 1 : missingCount - 1);
         setMissing(!missing);
-        !missing
-            ? flaggedMissingItems.current.push(slideData._id)
-            : flaggedMissingItems.current.splice(
-                  flaggedMissingItems.current.indexOf(slideData._id),
-                  1
-              );
+        if (!missing) {
+            flaggedMissingItems.current.push(slideData._id);
+            TrackGAEvent(slideData.store, "itemMarkedMissing", slideData.title);
+        } else {
+            flaggedMissingItems.current.splice(
+                flaggedMissingItems.current.indexOf(slideData._id),
+                1
+            );
+        }
 
         cookies.set("flaggedMissingItems", JSON.stringify(flaggedMissingItems.current), {
             path: "/"
@@ -107,6 +114,7 @@ export default function InfoPopup({
                                     target="_blank"
                                     rel="noreferrer"
                                     className="gMapsFwdBtn"
+                                    onClick={handleDirClick}
                                 >
                                     <DirectionsIcon className="popDirectionsIcon" />
                                     Get Directions

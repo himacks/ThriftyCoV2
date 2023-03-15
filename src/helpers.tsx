@@ -1,4 +1,5 @@
 import axios from "axios";
+import ReactGA from "react-ga4";
 
 const TESTING = !process.env.PRODUCTION;
 
@@ -38,6 +39,24 @@ export interface CategoryType {
     inputValue?: string;
     category: string;
 }
+
+export const initGA = () => {
+    ReactGA.initialize("G-PK9CGSCM42");
+};
+
+export const TrackGAPageview = (path: string, title: string) => {
+    console.log("sending page hit");
+    ReactGA.send({hitType: "pageview", page: path, title: title});
+};
+
+export const TrackGAEvent = (category: string, action: string, label?: string) => {
+    console.log("sending event");
+    ReactGA.event({
+        category: category,
+        action: action,
+        label: label
+    });
+};
 
 const getBaseURL = () => {
     return TESTING ? "http://localhost:3030" : "https://thrifty-co-backend.vercel.app";

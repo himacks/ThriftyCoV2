@@ -4,7 +4,7 @@ import Category from "./Category";
 
 import SearchIcon from "@mui/icons-material/Search";
 
-import {getClothingFromCategory, getClothingFromSearch} from "../helpers";
+import {getClothingFromCategory, getClothingFromSearch, TrackGAEvent} from "../helpers";
 
 import "../styling/slider.css";
 
@@ -73,6 +73,7 @@ export default function Slider({
                                     }`}
                                     onClick={() => {
                                         setActiveSlide(category);
+                                        TrackGAEvent(category, "categoryClick");
                                     }}
                                     key={index}
                                 >

@@ -1,5 +1,7 @@
 import React, {useEffect, useState} from "react";
 
+import {TrackGAPageview} from "../helpers";
+
 import Slider from "../components/Slider";
 
 export default function AppPage({
@@ -13,6 +15,10 @@ export default function AppPage({
     const categoryList = categories
         ? categories.map((categoryObj) => categoryObj.category)
         : undefined;
+
+    useEffect(() => {
+        TrackGAPageview(window.location.pathname, "App Page Visit");
+    }, []);
 
     return (
         <>
