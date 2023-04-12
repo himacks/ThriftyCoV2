@@ -2,7 +2,7 @@ import React, {useRef, useEffect, useState} from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import QRCode from "qrcode";
-import {SlideData, StoreData, updateMissingCount, TrackGAEvent} from "../helpers";
+import {SlideData, StoreData, updateMissingCount, TrackGAEvent, getBaseURL} from "../helpers";
 import DirectionsIcon from "@mui/icons-material/Directions";
 import {Cookie} from "universal-cookie";
 
@@ -62,7 +62,10 @@ export default function InfoPopup({
     };
 
     useEffect(() => {
-        QRCode.toCanvas(canvasRef.current, JSON.stringify({category, id: slideData._id}) || " ");
+        QRCode.toCanvas(
+            canvasRef.current,
+            JSON.stringify(`${window.location.href}scan/${category}/${slideData._id}` || " ")
+        );
     }, [category, slideData._id]);
 
     return (

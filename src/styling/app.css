@@ -28,6 +28,10 @@ body {
     background-size: contain;
 }
 
+.functionalAppCont {
+    min-height: 100vh;
+}
+
 @font-face {
     font-family: "aAbstractGroovy";
     src: url(../fonts/aAbstractGroovy.otf) format("opentype");

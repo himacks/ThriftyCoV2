@@ -1,9 +1,11 @@
 import React, {useState, useRef, useEffect} from "react";
 import {postClothingItem} from "../helpers";
 import {StoreType, CategoryType, TrackGAPageview} from "../helpers";
+import AccessDenied from "components/AccessDenied";
 import CircularProgress from "@mui/material/CircularProgress";
 import CancelIcon from "@mui/icons-material/Cancel";
 import TextField from "@mui/material/TextField";
+import {verifyToken} from "../helpers";
 import Autocomplete, {createFilterOptions} from "@mui/material/Autocomplete";
 
 import "../styling/postingpage.css";
@@ -14,8 +16,13 @@ type PostingPageProps = {
 };
 
 export default function PostingPage({categories, connectedStores}: PostingPageProps) {
+    const [isVerified, setVerified] = useState<boolean | null>(null);
     useEffect(() => {
         TrackGAPageview(window.location.pathname, "Posting Page Visit");
+
+        verifyToken().then((result) => {
+            setVerified(result);
+        });
     }, []);
 
     const emptyForm = {
@@ -112,191 +119,209 @@ export default function PostingPage({categories, connectedStores}: PostingPagePr
     return (
         <>
             <div className="bgCont" />
-            <div className="formBackground">
-                {categories && connectedStores && (
-                    <div className="formCont">
-                        <div className="formHeader">Upload New Clothing Item</div>
-                        <div className="inputCont titleCont">
-                            <div className="inputLabel">Title:</div>
-                            <input
-                                className={`formInput ${
-                                    formData.title.error ? "formInput--error" : ""
-                                }`}
-                                value={formData.title.value}
-                                onChange={(event) => {
-                                    handleFormChange(event, "title");
-                                }}
-                            ></input>
-                        </div>
-                        <div className="inputCont priceCont">
-                            <div className="inputLabel">Price:</div>
-                            <input
-                                className={`formInput ${
-                                    formData.price.error ? "formInput--error" : ""
-                                }`}
-                                value={formData.price.value}
-                                onChange={(event) => {
-                                    handleFormChange(event, "price");
-                                }}
-                            ></input>
-                        </div>
-                        <div className="priceLabelHelp">{`(Only the number eg. 22.00)`}</div>
-                        <div className="inputCont categoriesCont">
-                            <Autocomplete
-                                value={formData.category.value}
-                                onChange={(event, newValue) => {
-                                    if (typeof newValue === "string") {
-                                        handleFormChange(event, "category", newValue);
-                                    } else if (newValue && newValue.inputValue) {
-                                        // Create a new value from the user input
-                                        handleFormChange(event, "category", newValue.inputValue);
-                                    } else {
-                                        handleFormChange(event, "category", newValue);
-                                    }
-                                }}
-                                filterOptions={(options, params) => {
-                                    const filtered = categoryFilter(options, params);
+            {isVerified === true && (
+                <>
+                    <div className="formBackground">
+                        {categories && connectedStores && (
+                            <div className="formCont">
+                                <div className="formHeader">Upload New Clothing Item</div>
+                                <div className="inputCont titleCont">
+                                    <div className="inputLabel">Title:</div>
+                                    <input
+                                        className={`formInput ${
+                                            formData.title.error ? "formInput--error" : ""
+                                        }`}
+                                        value={formData.title.value}
+                                        onChange={(event) => {
+                                            handleFormChange(event, "title");
+                                        }}
+                                    ></input>
+                                </div>
+                                <div className="inputCont priceCont">
+                                    <div className="inputLabel">Price:</div>
+                                    <input
+                                        className={`formInput ${
+                                            formData.price.error ? "formInput--error" : ""
+                                        }`}
+                                        value={formData.price.value}
+                                        onChange={(event) => {
+                                            handleFormChange(event, "price");
+                                        }}
+                                    ></input>
+                                </div>
+                                <div className="priceLabelHelp">{`(Only the number eg. 22.00)`}</div>
+                                <div className="inputCont categoriesCont">
+                                    <Autocomplete
+                                        value={formData.category.value}
+                                        onChange={(event, newValue) => {
+                                            if (typeof newValue === "string") {
+                                                handleFormChange(event, "category", newValue);
+                                            } else if (newValue && newValue.inputValue) {
+                                                // Create a new value from the user input
+                                                handleFormChange(
+                                                    event,
+                                                    "category",
+                                                    newValue.inputValue
+                                                );
+                                            } else {
+                                                handleFormChange(event, "category", newValue);
+                                            }
+                                        }}
+                                        filterOptions={(options, params) => {
+                                            const filtered = categoryFilter(options, params);
 
-                                    const {inputValue} = params;
-                                    // Suggest the creation of a new value
-                                    const isExisting = options.some(
-                                        (option) => inputValue === option.category
-                                    );
-                                    if (inputValue !== "" && !isExisting) {
-                                        filtered.push({
-                                            inputValue,
-                                            category: `Add "${inputValue}"`
-                                        });
-                                    }
+                                            const {inputValue} = params;
+                                            // Suggest the creation of a new value
+                                            const isExisting = options.some(
+                                                (option) => inputValue === option.category
+                                            );
+                                            if (inputValue !== "" && !isExisting) {
+                                                filtered.push({
+                                                    inputValue,
+                                                    category: `Add "${inputValue}"`
+                                                });
+                                            }
 
-                                    return filtered;
-                                }}
-                                selectOnFocus
-                                clearOnBlur
-                                handleHomeEndKeys
-                                id="category-selection-menu"
-                                options={categories.slice(0, -1)}
-                                getOptionLabel={(option) => {
-                                    // Value selected with enter, right from the input
-                                    if (typeof option === "string") {
-                                        return option;
-                                    }
-                                    // Add "xxx" option created dynamically
-                                    if (option.inputValue) {
-                                        return option.inputValue;
-                                    }
-                                    // Regular option
+                                            return filtered;
+                                        }}
+                                        selectOnFocus
+                                        clearOnBlur
+                                        handleHomeEndKeys
+                                        id="category-selection-menu"
+                                        options={categories.slice(0, -1)}
+                                        getOptionLabel={(option) => {
+                                            // Value selected with enter, right from the input
+                                            if (typeof option === "string") {
+                                                return option;
+                                            }
+                                            // Add "xxx" option created dynamically
+                                            if (option.inputValue) {
+                                                return option.inputValue;
+                                            }
+                                            // Regular option
 
-                                    return option.category;
-                                }}
-                                renderOption={(props, option) => (
-                                    <li {...props}>{option.category}</li>
-                                )}
-                                sx={{width: 300}}
-                                freeSolo
-                                renderInput={(params) => (
-                                    <TextField {...params} label="Clothing Category" />
-                                )}
-                            />
-                        </div>
-                        <div className="inputCont locationCont">
-                            <Autocomplete
-                                value={formData.store.value}
-                                onChange={(event, newValue) => {
-                                    if (typeof newValue === "string") {
-                                        handleFormChange(event, "store", newValue);
-                                    } else if (newValue && newValue.inputValue) {
-                                        // Create a new value from the user input
-                                        handleFormChange(event, "store", newValue.inputValue);
-                                    } else {
-                                        handleFormChange(event, "store", newValue);
-                                    }
-                                }}
-                                filterOptions={(options, params) => {
-                                    const filtered = storeFilter(connectedStores, params);
+                                            return option.category;
+                                        }}
+                                        renderOption={(props, option) => (
+                                            <li {...props}>{option.category}</li>
+                                        )}
+                                        sx={{width: 300}}
+                                        freeSolo
+                                        renderInput={(params) => (
+                                            <TextField {...params} label="Clothing Category" />
+                                        )}
+                                    />
+                                </div>
+                                <div className="inputCont locationCont">
+                                    <Autocomplete
+                                        value={formData.store.value}
+                                        onChange={(event, newValue) => {
+                                            if (typeof newValue === "string") {
+                                                handleFormChange(event, "store", newValue);
+                                            } else if (newValue && newValue.inputValue) {
+                                                // Create a new value from the user input
+                                                handleFormChange(
+                                                    event,
+                                                    "store",
+                                                    newValue.inputValue
+                                                );
+                                            } else {
+                                                handleFormChange(event, "store", newValue);
+                                            }
+                                        }}
+                                        filterOptions={(options, params) => {
+                                            const filtered = storeFilter(connectedStores, params);
 
-                                    const {inputValue} = params;
-                                    // Suggest the creation of a new value
-                                    const isExisting = options.some(
-                                        (option) => inputValue === option.store
-                                    );
-                                    if (inputValue !== "" && !isExisting) {
-                                        filtered.push({
-                                            inputValue,
-                                            store: `Add "${inputValue}"`
-                                        });
-                                    }
+                                            const {inputValue} = params;
+                                            // Suggest the creation of a new value
+                                            const isExisting = options.some(
+                                                (option) => inputValue === option.store
+                                            );
+                                            if (inputValue !== "" && !isExisting) {
+                                                filtered.push({
+                                                    inputValue,
+                                                    store: `Add "${inputValue}"`
+                                                });
+                                            }
 
-                                    return filtered;
-                                }}
-                                selectOnFocus
-                                clearOnBlur
-                                handleHomeEndKeys
-                                id="category-selection-menu"
-                                options={connectedStores}
-                                getOptionLabel={(option) => {
-                                    // Value selected with enter, right from the input
-                                    if (typeof option === "string") {
-                                        return option;
-                                    }
-                                    // Add "xxx" option created dynamically
-                                    if (option.inputValue) {
-                                        return option.inputValue;
-                                    }
-                                    // Regular option
-                                    return option.store;
-                                }}
-                                renderOption={(props, option) => <li {...props}>{option.store}</li>}
-                                sx={{width: 300}}
-                                freeSolo
-                                renderInput={(params) => (
-                                    <TextField {...params} label="Store Location" />
-                                )}
-                            />
-                        </div>
-                        <div className="inputCont imageCont">
-                            <div className="inputLabel">Image:</div>
-                            <input
-                                type="file"
-                                id="clothingImg"
-                                ref={fileUploadRef}
-                                className={`formUpload${
-                                    formData.image.error ? " formInput--error" : ""
-                                }`}
-                                name="clothingImg"
-                                accept="image/png, image/jpeg"
-                                onChange={(event) => {
-                                    handleFormChange(event, "image");
-                                }}
-                            ></input>
-                        </div>
-                        <div className="submitCont">
-                            <button className="formSubmitBtn" onClick={handleSubmit}>
-                                Submit
-                            </button>
-                        </div>
+                                            return filtered;
+                                        }}
+                                        selectOnFocus
+                                        clearOnBlur
+                                        handleHomeEndKeys
+                                        id="category-selection-menu"
+                                        options={connectedStores}
+                                        getOptionLabel={(option) => {
+                                            // Value selected with enter, right from the input
+                                            if (typeof option === "string") {
+                                                return option;
+                                            }
+                                            // Add "xxx" option created dynamically
+                                            if (option.inputValue) {
+                                                return option.inputValue;
+                                            }
+                                            // Regular option
+                                            return option.store;
+                                        }}
+                                        renderOption={(props, option) => (
+                                            <li {...props}>{option.store}</li>
+                                        )}
+                                        sx={{width: 300}}
+                                        freeSolo
+                                        renderInput={(params) => (
+                                            <TextField {...params} label="Store Location" />
+                                        )}
+                                    />
+                                </div>
+                                <div className="inputCont imageCont">
+                                    <div className="inputLabel">Image:</div>
+                                    <input
+                                        type="file"
+                                        id="clothingImg"
+                                        ref={fileUploadRef}
+                                        className={`formUpload${
+                                            formData.image.error ? " formInput--error" : ""
+                                        }`}
+                                        name="clothingImg"
+                                        accept="image/png, image/jpeg"
+                                        onChange={(event) => {
+                                            handleFormChange(event, "image");
+                                        }}
+                                    ></input>
+                                </div>
+                                <div className="submitCont">
+                                    <button className="formSubmitBtn" onClick={handleSubmit}>
+                                        Submit
+                                    </button>
+                                </div>
+                            </div>
+                        )}
+                        {postSubmitMsg && postSubmitMsg.value === "loading" ? (
+                            <div className="loadingCont">
+                                <CircularProgress className="loadingAnim" color="inherit" />
+                                <div className="loadingText">Uploading Item...</div>
+                            </div>
+                        ) : postSubmitMsg ? (
+                            <div
+                                className={`submitMsgCont`}
+                                onClick={() => setPostSubmitMsg(undefined)}
+                            >
+                                <div
+                                    className={`submitMsgText${
+                                        postSubmitMsg.success
+                                            ? " submitMsgText--success"
+                                            : " submitMsgText--failure"
+                                    }`}
+                                >
+                                    {postSubmitMsg.value}
+                                    <CancelIcon className="submitMsgCloseBtn" />
+                                </div>
+                            </div>
+                        ) : undefined}
                     </div>
-                )}
-                {postSubmitMsg && postSubmitMsg.value === "loading" ? (
-                    <div className="loadingCont">
-                        <CircularProgress className="loadingAnim" color="inherit" />
-                        <div className="loadingText">Uploading Item...</div>
-                    </div>
-                ) : postSubmitMsg ? (
-                    <div className={`submitMsgCont`} onClick={() => setPostSubmitMsg(undefined)}>
-                        <div
-                            className={`submitMsgText${
-                                postSubmitMsg.success
-                                    ? " submitMsgText--success"
-                                    : " submitMsgText--failure"
-                            }`}
-                        >
-                            {postSubmitMsg.value}
-                            <CancelIcon className="submitMsgCloseBtn" />
-                        </div>
-                    </div>
-                ) : undefined}
-            </div>
+                </>
+            )}
+            {isVerified === false && <AccessDenied />}
         </>
     );
 }

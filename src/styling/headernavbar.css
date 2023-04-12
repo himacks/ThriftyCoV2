@@ -1,0 +1,62 @@
+/* HeaderNavBar.css */
+.header-nav-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    background-color: #fffee4;
+}
+
+.icon-nav-cont {
+    display: flex;
+    align-items: center;
+    font-family: "aAbstractGroovy";
+    margin-left: 1rem;
+
+}
+
+.banner-image {
+    height: 75px;
+    cursor: pointer;
+}
+
+.nav-cont {
+    display: flex;
+    margin-left: 2rem;
+}
+
+.nav-link {
+    text-decoration: none;
+    margin: 10px;
+    color: #708050;
+}
+
+.nav-link:hover {
+    text-decoration: underline;
+}
+
+.search-bar {
+    width: 200px;
+    border: 2px solid #708050;
+    padding: 15px;
+    border-radius: 25px;
+    height: 50px;
+    background-color: white;
+    margin: 0 25px;
+}
+
+.profile-icon-button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.search-profile-cont {
+    margin-right: 1rem;
+    display: flex;
+    align-items: center;
+}
+
+.profile-icon {
+    color: #708050;
+}

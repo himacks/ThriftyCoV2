@@ -81,7 +81,7 @@ export default function App() {
                         }
                     />
                     <Route path="/faq" element={<FAQPage />} />
-                    <Route path="/scan" element={<ScanningPage />} />
+                    <Route path="/scan/:urlCategory?/:urlId?" element={<ScanningPage />} />
                     <Route
                         path="/post"
                         element={

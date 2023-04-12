@@ -48,7 +48,7 @@ export default function Slider({
 
     return (
         <>
-            <div className="sliderHeaderCont">
+            <div id="sliderHeaderCont" className="sliderHeaderCont">
                 <div className="categoryListCont">
                     <div
                         className={`categorySearchCont${

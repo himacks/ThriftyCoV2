@@ -1,5 +1,7 @@
 import axios from "axios";
 import ReactGA from "react-ga4";
+import Cookies from "universal-cookie";
+const cookies = new Cookies();
 
 const TESTING = !process.env.PRODUCTION;
 
@@ -58,7 +60,7 @@ export const TrackGAEvent = (category: string, action: string, label?: string) =
     });
 };
 
-const getBaseURL = () => {
+export const getBaseURL = () => {
     return TESTING ? "http://localhost:3030" : "https://thrifty-co-backend.vercel.app";
 };
 
@@ -181,3 +183,48 @@ export const postClothingItem = (fileFormData) => {
             });
     });
 };
+
+const login = async (username, password) => {
+    try {
+        const response = await axios.post(`${getBaseURL()}/api/login`, {username, password});
+        const token = response.data.token;
+        console.log(response);
+        cookies.set("jwtToken", token, {path: "/"});
+        if (token) {
+            return true;
+        }
+    } catch (err) {
+        console.error(err);
+        return false;
+    }
+
+    return false;
+};
+
+async function verifyToken() {
+    const jwt = cookies.get("jwtToken");
+    if (jwt) {
+        try {
+            const response = await fetch(`${getBaseURL()}/api/admin`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${jwt}`
+                }
+            });
+
+            if (response.ok) {
+                return true;
+            } else {
+                throw new Error("Failed to authenticate user");
+            }
+        } catch (error) {
+            console.error("Error authenticating user:", error);
+            return false;
+        }
+    }
+
+    return false;
+}
+
+export {login, verifyToken};

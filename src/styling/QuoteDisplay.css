@@ -1,0 +1,11 @@
+.quote-container {
+    background-color: white;
+    padding: 40px 20px;
+  }
+  
+  .quote-text {
+    font-family: "aAbstractGroovy";
+    font-size: 18px;
+    text-align: center;
+  }
+  
