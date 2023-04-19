@@ -13,7 +13,9 @@ export default function AppPage({
     likedItems,
     flaggedMissingItems,
     connectedStores,
-    clothing
+    verify,
+    clothing,
+    isVerified
 }) {
     const categoryList = categories
         ? categories.map((categoryObj) => categoryObj.category)
@@ -30,6 +32,8 @@ export default function AppPage({
                 <HeaderNavBar
                     bannerImage="https://d17vv5kmac4tms.cloudfront.net/thriftylogo.png"
                     shopElName="sliderHeaderCont"
+                    isVerified={isVerified}
+                    verify={verify}
                 />
                 <FullWidthImage />
                 <QuoteDisplay quote="We need to responsibly manage our planet so that there is a sustainable future for future generations. When clothing trends change faster than ice turns to liquid, clothing turns into a dispensable commodity: merely a piece of trash." />

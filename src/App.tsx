@@ -8,7 +8,14 @@ import ScanningPage from "./pages/ScanningPage";
 import IntroPopup from "./components/IntroPopup";
 import Cookies from "universal-cookie";
 
-import {getCategories, getStores, getClothingFromCategory, StoreType, initGA} from "./helpers";
+import {
+    getCategories,
+    getStores,
+    getClothingFromCategory,
+    StoreType,
+    initGA,
+    verifyToken
+} from "./helpers";
 
 import "./styling/app.css";
 
@@ -21,11 +28,21 @@ export default function App() {
     const [clothing, setClothing] = useState(undefined);
     const [showPopup, setShowPopup] = useState(false);
     const [connectedStores, setConnectedStores] = useState<StoreType[]>(undefined);
+    const [isVerified, setVerified] = useState<boolean | null>(null);
+
     const likedItems = useRef([]);
     const flaggedMissingItems = useRef([]);
 
+    const verify = () => {
+        verifyToken().then((result) => {
+            setVerified(result);
+        });
+    };
+
     useEffect(() => {
         initGA();
+
+        verify();
 
         getStores().then(({stores}) => {
             setConnectedStores(stores);
@@ -74,20 +91,26 @@ export default function App() {
                                 setClothing={setClothing}
                                 categories={categories}
                                 clothing={clothing}
+                                verify={verify}
                                 likedItems={likedItems}
                                 flaggedMissingItems={flaggedMissingItems}
                                 connectedStores={connectedStores}
+                                isVerified={isVerified}
                             />
                         }
                     />
                     <Route path="/faq" element={<FAQPage />} />
-                    <Route path="/scan/:urlCategory?/:urlId?" element={<ScanningPage />} />
+                    <Route
+                        path="/scan/:urlCategory?/:urlId?"
+                        element={<ScanningPage isVerified={isVerified} />}
+                    />
                     <Route
                         path="/post"
                         element={
                             <PostingPage
                                 categories={categories}
                                 connectedStores={connectedStores}
+                                isVerified={isVerified}
                             />
                         }
                     />

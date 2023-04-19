@@ -12,7 +12,11 @@ import {login} from "../helpers";
 import Cookies from "universal-cookie";
 const cookies = new Cookies();
 
-const AdminLogin: React.FC = () => {
+interface AdminLoginProps {
+    verify: () => void;
+}
+
+const AdminLogin: React.FC<AdminLoginProps> = ({verify}) => {
     const [open, setOpen] = React.useState(false);
     const [username, setUsername] = React.useState("");
     const [password, setPassword] = React.useState("");
@@ -34,6 +38,7 @@ const AdminLogin: React.FC = () => {
     const handleSubmit = async () => {
         const validated = await login(username, password);
         if (validated) {
+            verify();
             handleClose();
         } else {
             setError(true);
@@ -52,7 +57,7 @@ const AdminLogin: React.FC = () => {
         <div>
             <IconButton
                 aria-label="admin login"
-                disabled={cookies.get("jwtToken")}
+                disabled={cookies.get("jwtToken") && true}
                 component="label"
                 onClick={handleClickOpen}
             >

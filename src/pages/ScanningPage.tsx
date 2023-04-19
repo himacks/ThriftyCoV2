@@ -5,14 +5,16 @@ import {useParams} from "react-router-dom";
 import {getItemFromId, SlideData, markItemSold, TrackGAPageview, TrackGAEvent} from "../helpers";
 import Slide from "../components/Slide";
 import AccessDenied from "components/AccessDenied";
-import {verifyToken} from "../helpers";
 
 import "../styling/scanningpage.css";
 
-export default function ScanningPage() {
+interface ScanningPageProps {
+    isVerified: boolean;
+}
+
+export default function ScanningPage({isVerified}: ScanningPageProps) {
     const [itemData, setItemData] = useState<SlideData>(undefined);
     const [itemSold, setItemSold] = useState(false);
-    const [isVerified, setVerified] = useState<boolean | null>(null);
 
     const {urlCategory, urlId} = useParams();
 
@@ -44,10 +46,6 @@ export default function ScanningPage() {
 
     useEffect(() => {
         TrackGAPageview(window.location.pathname, "Scanning Page Visit");
-
-        verifyToken().then((result) => {
-            setVerified(result);
-        });
     }, []);
 
     const handleQRCancel = () => {

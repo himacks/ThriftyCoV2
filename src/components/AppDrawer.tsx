@@ -5,8 +5,15 @@ import Drawer from "@mui/material/Drawer";
 
 import "../styling/AppDrawer.css";
 
-function AppDrawer() {
+function AppDrawer({scrollToShop, isVerified}) {
     const [openSideBar, setOpenSideBar] = useState(false);
+
+    const handleShopClick = () => {
+        setOpenSideBar(false);
+        setTimeout(() => {
+            scrollToShop();
+        }, 100);
+    };
 
     return (
         <div className="headerNavCont">
@@ -30,21 +37,35 @@ function AppDrawer() {
                         <div className="navText">Home</div>
                     </div>
                 </a>
-                <a href="/shop" className="nav-link">
+                <a onClick={handleShopClick} className="nav-link">
                     <div className="navCont">
                         <div className="navText">Shop</div>
                     </div>
                 </a>
-                <a href="/aboutus" className="nav-link">
+                <a href="/" className="nav-link">
                     <div className="navCont">
                         <div className="navText">About Us</div>
                     </div>
                 </a>
-                <a href="/partners" className="nav-link">
+                <a href="/" className="nav-link">
                     <div className="navCont">
                         <div className="navText">Partners</div>
                     </div>
                 </a>
+                {isVerified && (
+                    <>
+                        <a href="/post" className="nav-link">
+                            <div className="navCont">
+                                <div className="navText">Post</div>
+                            </div>
+                        </a>
+                        <a href="/scan" className="nav-link">
+                            <div className="navCont">
+                                <div className="navText">Scan</div>
+                            </div>
+                        </a>{" "}
+                    </>
+                )}
             </Drawer>
         </div>
     );

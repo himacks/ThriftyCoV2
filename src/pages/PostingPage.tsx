@@ -5,7 +5,6 @@ import AccessDenied from "components/AccessDenied";
 import CircularProgress from "@mui/material/CircularProgress";
 import CancelIcon from "@mui/icons-material/Cancel";
 import TextField from "@mui/material/TextField";
-import {verifyToken} from "../helpers";
 import Autocomplete, {createFilterOptions} from "@mui/material/Autocomplete";
 
 import "../styling/postingpage.css";
@@ -13,16 +12,12 @@ import "../styling/postingpage.css";
 type PostingPageProps = {
     categories: CategoryType[];
     connectedStores: StoreType[];
+    isVerified: boolean;
 };
 
-export default function PostingPage({categories, connectedStores}: PostingPageProps) {
-    const [isVerified, setVerified] = useState<boolean | null>(null);
+export default function PostingPage({categories, connectedStores, isVerified}: PostingPageProps) {
     useEffect(() => {
         TrackGAPageview(window.location.pathname, "Posting Page Visit");
-
-        verifyToken().then((result) => {
-            setVerified(result);
-        });
     }, []);
 
     const emptyForm = {

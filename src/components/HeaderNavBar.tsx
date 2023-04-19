@@ -10,13 +10,17 @@ interface HeaderNavBarProps {
     shopElName: string;
     aboutUsLink?: string;
     partnersLink?: string;
+    verify: () => void;
+    isVerified: boolean;
 }
 
 export default function HeaderNavBar({
     bannerImage,
     shopElName,
     aboutUsLink,
-    partnersLink
+    partnersLink,
+    verify,
+    isVerified
 }: HeaderNavBarProps) {
     const scrollToShop = () => {
         const shopElement = document.getElementById(shopElName);
@@ -42,12 +46,24 @@ export default function HeaderNavBar({
                         <a href={partnersLink} className="nav-link">
                             Partners
                         </a>
+                        {isVerified && (
+                            <>
+                                <a href="/post" className="nav-link">
+                                    Post
+                                </a>
+                                <a href="/scan" className="nav-link">
+                                    Scan
+                                </a>
+                            </>
+                        )}
                     </div>
                 )}
             </div>
             <div className="search-profile-cont">
-                <AdminLogin />
-                {isMobileDevice && <AppDrawer />}
+                <AdminLogin verify={verify} />
+                {isMobileDevice && (
+                    <AppDrawer scrollToShop={scrollToShop} isVerified={isVerified} />
+                )}
             </div>
         </header>
     );
