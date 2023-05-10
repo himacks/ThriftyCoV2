@@ -1,4 +1,4 @@
-import React, {useState, useRef} from "react";
+import React, {useState, useRef, useEffect} from "react";
 
 import FavoriteItem from "./FavoriteItem";
 import InfoPopup from "./InfoPopup";
@@ -35,6 +35,11 @@ export default function Slide({
     const [openPopup, setOpenPopup] = useState(false);
 
     const likeRef = useRef(null);
+
+    useEffect(() => {
+        setMissingCount(slideData.missingCount);
+        console.log("updated missing count");
+    }, [slideData.missingCount]);
 
     const handleClick = (event) => {
         if (event.target.className.includes) {
